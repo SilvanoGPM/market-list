@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
-    backgroundColor: 'blue',
   },
 
   fixBackground: {
@@ -18,7 +17,6 @@ const styles = StyleSheet.create({
   },
 
   headerTitle: {
-    color: '#ffffff',
     textAlign: 'center',
     fontSize: 32,
   },
@@ -29,7 +27,8 @@ const styles = StyleSheet.create({
   },
 
   latestPurchases: {
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
   },
 
   latestPurchaseList: {
@@ -42,12 +41,41 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     height: 120,
+    elevation: 5,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+  },
+
+  purchasesInfo: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+
+  purchasesInfoCards: {
+    flexDirection: 'row',
+    padding: 8,
+    borderWidth: 1,
+    borderRadius: 4,
+  },
+
+  purchasesInfoCard: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 150,
+  },
+
+  purchasesInfoCardIcon: {
+    alignItems: 'center',
   },
 
   fabContainer: {
     position: 'absolute',
     bottom: 10,
-    width: '100%',
+    left: 10,
+    right: 10,
     alignItems: 'center',
   },
 

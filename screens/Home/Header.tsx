@@ -1,13 +1,19 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import { View } from 'react-native';
 import { Title, useTheme } from 'react-native-paper';
 import Svg, { Polygon } from 'react-native-svg';
+
 import styles from './styles';
 
-function AngledShape() {
+interface AngledShapeProps {
+  color: string;
+}
+
+function AngledShape({ color }: AngledShapeProps) {
   return (
     <View style={{ height: 50 }}>
       <Svg viewBox="0 0 100 100" preserveAspectRatio="none">
-        <Polygon fill="#ffffff" points="0,100 100,0 100,100" />
+        <Polygon fill={color} points="0,100 100,0 100,100" />
       </Svg>
     </View>
   );
@@ -16,15 +22,26 @@ function AngledShape() {
 export function Header() {
   const { colors } = useTheme();
 
+  const gradientOptions = {
+    colors: [colors.accent, colors.primary],
+    start: { x: -1, y: 0 },
+    end: { x: 1, y: 0 },
+  };
+
   return (
-    <View style={[{ backgroundColor: colors.primary }, styles.header]}>
-      <View style={[{ backgroundColor: colors.primary }, styles.fixBackground]} />
+    <LinearGradient {...gradientOptions} style={styles.header}>
+      <LinearGradient
+        {...gradientOptions}
+        style={[{ backgroundColor: colors.primary }, styles.fixBackground]}
+      />
 
       <View style={styles.headerTitleContainer}>
-        <Title style={styles.headerTitle}>Market{'\n'}List</Title>
+        <Title style={[{ color: colors.background }, styles.headerTitle]}>
+          Market{'\n'}List
+        </Title>
       </View>
 
-      <AngledShape />
-    </View>
+      <AngledShape color={colors.background} />
+    </LinearGradient>
   );
 }

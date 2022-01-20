@@ -22,10 +22,13 @@ export function LatestPurchases({ purchases }: LatestPurchasesProps) {
     return (
       <TouchableOpacity>
         <Card.Title
-          style={[{ borderColor: colors.primary }, styles.latestPurchaseItem]}
-          titleStyle={{ color: colors.primary }}
+          style={[
+            { borderColor: colors.primary, backgroundColor: colors.surface },
+            styles.latestPurchaseItem,
+          ]}
+          titleStyle={{ color: colors.primary, maxWidth: 200 }}
           title={item.title}
-          subtitle={`Tota: ${formatTotal(item.total)}`}
+          subtitle={`Total: ${formatTotal(item.total)}`}
           left={(props) => <Avatar.Icon {...props} size={48} icon="cart" />}
         />
       </TouchableOpacity>
