@@ -13,7 +13,7 @@ export function Main() {
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBarGradient />
 
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="NewPurchase">
         <Stack.Screen
           name="Home"
           component={Home}

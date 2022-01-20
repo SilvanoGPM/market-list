@@ -1,7 +1,7 @@
 interface Product {
   name: string;
   quantity: number;
-  price: number;
+  price?: number;
 }
 
 interface Purchase {
