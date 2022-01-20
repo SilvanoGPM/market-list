@@ -5,12 +5,6 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
 
-  fixBackground: {
-    width: '100%',
-    height: 50,
-    marginTop: -50,
-  },
-
   header: {
     justifyContent: 'flex-end',
     height: 180,
@@ -26,18 +20,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  latestPurchases: {
+  purchasesListContainer: {
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
 
-  latestPurchaseList: {
+  purchaseList: {
     borderRadius: 4,
     borderWidth: 1,
     padding: 8,
   },
 
-  latestPurchaseItem: {
+  purchaseItem: {
     borderRadius: 4,
     borderWidth: 1,
     height: 120,
@@ -46,6 +40,10 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+  },
+
+  purchasesEmpty: {
+    fontStyle: 'italic',
   },
 
   purchasesInfo: {
@@ -76,11 +74,11 @@ const styles = StyleSheet.create({
     bottom: 10,
     left: 10,
     right: 10,
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
 
   fab: {
-    padding: 8,
+    padding: 4,
     borderRadius: 50,
   },
 });

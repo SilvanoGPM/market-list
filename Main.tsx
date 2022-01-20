@@ -1,19 +1,33 @@
-import { StatusBar } from "expo-status-bar";
-import { useTheme } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { CustomRouteHeader } from './components/CustomRouteHeader';
 
-import { Home } from "./screens/Home";
+import { StatusBarGradient } from './components/StatusBarGradient';
+import { Home } from './screens/Home';
+import { NewPurchase } from './screens/NewPurchase';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export function Main() {
-  const { colors } = useTheme();
-
   return (
-    <>
-      <StatusBar style="light" />
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBarGradient />
 
-      <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
-        <Home />
-      </SafeAreaView>
-    </>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="NewPurchase"
+          component={NewPurchase}
+          options={{
+            header: (props) => <CustomRouteHeader {...props} />,
+            headerTitle: "Nova lista de compras"
+          }}
+        />
+      </Stack.Navigator>
+    </SafeAreaView>
   );
 }

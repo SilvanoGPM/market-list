@@ -30,11 +30,6 @@ export function Header() {
 
   return (
     <LinearGradient {...gradientOptions} style={styles.header}>
-      <LinearGradient
-        {...gradientOptions}
-        style={[{ backgroundColor: colors.primary }, styles.fixBackground]}
-      />
-
       <View style={styles.headerTitleContainer}>
         <Title style={[{ color: colors.background }, styles.headerTitle]}>
           Market{'\n'}List

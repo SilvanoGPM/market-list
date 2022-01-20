@@ -5,17 +5,17 @@ import {
   View,
 } from 'react-native';
 
-import { Avatar, Card, Headline, useTheme } from 'react-native-paper';
+import { Avatar, Card, Headline, Paragraph, useTheme } from 'react-native-paper';
 
 import { formatTotal } from '../../utils/formatters';
 
 import styles from './styles';
 
-interface LatestPurchasesProps {
+interface PurchasesListProps {
   purchases: Purchase[];
 }
 
-export function LatestPurchases({ purchases }: LatestPurchasesProps) {
+export function PurchasesList({ purchases }: PurchasesListProps) {
   const { colors } = useTheme();
 
   function renderListItem({ item }: ListRenderItemInfo<Purchase>) {
@@ -24,7 +24,7 @@ export function LatestPurchases({ purchases }: LatestPurchasesProps) {
         <Card.Title
           style={[
             { borderColor: colors.primary, backgroundColor: colors.surface },
-            styles.latestPurchaseItem,
+            styles.purchaseItem,
           ]}
           titleStyle={{ color: colors.primary, maxWidth: 200 }}
           title={item.title}
@@ -36,13 +36,13 @@ export function LatestPurchases({ purchases }: LatestPurchasesProps) {
   }
 
   return (
-    <View style={styles.latestPurchases}>
-      <Headline style={{ marginBottom: 8 }}>Últimas Compras</Headline>
+    <View style={styles.purchasesListContainer}>
+      <Headline style={{ marginBottom: 8 }}>Compras</Headline>
 
-      <View>
+      {Boolean(purchases.length) ? (
         <FlatList
           horizontal
-          style={[{ borderColor: colors.primary }, styles.latestPurchaseList]}
+          style={[{ borderColor: colors.primary }, styles.purchaseList]}
           contentContainerStyle={{ overflow: 'scroll' }}
           data={purchases}
           keyExtractor={({ id }) => id}
@@ -59,7 +59,11 @@ export function LatestPurchases({ purchases }: LatestPurchasesProps) {
             );
           }}
         />
-      </View>
+      ) : (
+        <View>
+          <Paragraph style={styles.purchasesEmpty}>Nenhum compra realizada!</Paragraph>
+        </View>
+      )}
     </View>
   );
 }
