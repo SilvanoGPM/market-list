@@ -1,11 +1,13 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button, Provider as PaperProvider } from 'react-native-paper';
+import { Provider as PaperProvider } from 'react-native-paper';
+
+import { Home } from './screens/Home';
 
 export default function App() {
   return (
     <PaperProvider>
-      <SafeAreaView>
-        <Button mode="contained">Press me</Button>
+      <SafeAreaView style={{ flex: 1 }}>
+        <Home />
       </SafeAreaView>
     </PaperProvider>
   );
