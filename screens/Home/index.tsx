@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { FAB, useTheme } from 'react-native-paper';
 
 import { LatestPurchases } from './LatestPurchases';
+import { Header } from './Header';
 
 import styles from './styles';
 
@@ -21,6 +22,8 @@ export function Home() {
 
   return (
     <View style={{ flex: 1 }}>
+      <Header />
+
       <LatestPurchases purchases={purchases.reverse()} />
 
       <View style={styles.fabContainer}>
