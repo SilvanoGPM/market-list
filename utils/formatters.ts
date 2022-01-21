@@ -1,7 +1,5 @@
-export function formatTotal(total: number): string {
-  const totalFormatted = total.toLocaleString('pt-BR', {
-    minimumFractionDigits: 2,
-  });
+// https://gist.github.com/kafeltz/1b99cbaa9dc2142e04ca
 
-  return `R$ ${totalFormatted}`.replace('.', ',');
+export function formatPriceToBrazilStyle(total: number): string {
+  return 'R$ ' + total.toFixed(2).replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
 }

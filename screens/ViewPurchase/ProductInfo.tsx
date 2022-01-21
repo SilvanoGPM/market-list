@@ -7,6 +7,7 @@ import {
   Button,
   Dialog,
   Headline,
+  Paragraph,
   Portal,
   TextInput,
   useTheme,
@@ -14,6 +15,7 @@ import {
 import { usePurchases } from '../../contexts/PurchaseContext';
 
 import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
+import { formatPriceToBrazilStyle } from '../../utils/formatters';
 import { sum } from '../../utils/sum';
 import { sumProducts } from '../../utils/sumProducts';
 
@@ -148,9 +150,16 @@ export function ProductInfo({
             styles.changeQuantity,
           ]}
         >
-          <Headline style={{ color: colors.primary, marginBottom: 8 }}>
+          <Headline style={{ color: colors.primary, marginBottom: 4 }}>
             {product?.name}
           </Headline>
+
+          {product?.price && (
+            <Paragraph style={{ marginBottom: 8 }}>
+              {product.quantity} x {formatPriceToBrazilStyle(product.price)} ={' '}
+              {formatPriceToBrazilStyle(product.quantity * product.price)}
+            </Paragraph>
+          )}
 
           <TextInput
             keyboardType="decimal-pad"

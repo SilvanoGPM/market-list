@@ -15,7 +15,7 @@ import {
   View,
 } from 'react-native';
 
-import { formatTotal } from '../../utils/formatters';
+import { formatPriceToBrazilStyle } from '../../utils/formatters';
 
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
@@ -46,7 +46,7 @@ export function PurchasesList({ purchases }: PurchasesListProps) {
           ]}
           titleStyle={{ color: colors.primary, maxWidth: 200 }}
           title={item.title}
-          subtitle={`Total: ${formatTotal(item.total)}`}
+          subtitle={`Total: ${formatPriceToBrazilStyle(item.total)}`}
           left={(props) => <Avatar.Icon {...props} size={48} icon="cart" />}
         />
       </TouchableOpacity>

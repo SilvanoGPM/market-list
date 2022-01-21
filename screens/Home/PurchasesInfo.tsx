@@ -9,7 +9,7 @@ import {
   useTheme,
 } from 'react-native-paper';
 
-import { formatTotal } from '../../utils/formatters';
+import { formatPriceToBrazilStyle } from '../../utils/formatters';
 import { sum } from '../../utils/sum';
 
 import styles from './styles';
@@ -42,7 +42,7 @@ export function PurchasesInfo({ purchases }: PurchasesInfoProps) {
             Gasto
           </Title>
           <Paragraph style={{ color: colors.primary, textAlign: 'center' }}>
-            {formatTotal(totalPrice)}
+            {formatPriceToBrazilStyle(totalPrice)}
           </Paragraph>
         </Card>
 

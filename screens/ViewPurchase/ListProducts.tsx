@@ -1,23 +1,25 @@
 import { useState } from 'react';
+
 import {
   FlatList,
   ListRenderItemInfo,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import {
   Avatar,
   Divider,
   Headline,
   Paragraph,
-  Title,
   useTheme,
 } from 'react-native-paper';
+
 import { usePurchases } from '../../contexts/PurchaseContext';
 import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
-import { formatTotal } from '../../utils/formatters';
+import { formatPriceToBrazilStyle } from '../../utils/formatters';
 import { ProductInfo } from './ProductInfo';
+
 import styles from './styles';
 
 interface ListProductsProps {
@@ -29,7 +31,6 @@ export function ListProducts({ products = [] }: ListProductsProps) {
   const { setPurchases } = usePurchases();
 
   const [productName, setProductName] = useState<string>();
-  const [newPurchaseVisible, setNewPurchaseVisible] = useState<boolean>(false);
   const [showChangeModal, setShowChangeModal] = useState<boolean>(false);
 
   function toggleCatchProduct(name: string) {
@@ -72,7 +73,7 @@ export function ListProducts({ products = [] }: ListProductsProps) {
         <TouchableOpacity style={styles.listItemContainer} onPress={selectProduct(item.name)}>
           <View style={{ flex: 0.9 }}>
             <Paragraph style={styles.listItemPrice}>
-              {item.price ? formatTotal(item.price || 0) : 'Sem preço'}
+              {item.price ? formatPriceToBrazilStyle(item.price || 0) : 'Sem preço'}
             </Paragraph>
 
             <Headline

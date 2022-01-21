@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { Headline, Paragraph, Title, useTheme } from 'react-native-paper';
 import { useToast } from 'react-native-paper-toast';
 import { usePurchases } from '../../contexts/PurchaseContext';
-import { formatTotal } from '../../utils/formatters';
+import { formatPriceToBrazilStyle } from '../../utils/formatters';
 import { sum } from '../../utils/sum';
 import { sumProducts } from '../../utils/sumProducts';
 import { ListProducts } from './ListProducts';
@@ -42,7 +42,7 @@ export function ViewPurchase({ navigation, route }: ViewPurchaseProps) {
       </View>
 
       <Headline style={styles.total}>
-        Preço total: {formatTotal(total)}
+        Preço total: {formatPriceToBrazilStyle(total)}
       </Headline>
     </View>
   );

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
 
   changeQuantity: {
-    height: 200,
+    height: 250,
     position: 'absolute',
     bottom: 0,
     width: '100%',
