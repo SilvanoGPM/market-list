@@ -50,7 +50,6 @@ export function AddProductModal({
     }
   }
 
-
   function addProduct() {
     const productName = product.name.trim();
     const productIsValid = productName && product.quantity;

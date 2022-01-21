@@ -46,7 +46,7 @@ export function PurchasesList({ purchases }: PurchasesListProps) {
           ]}
           titleStyle={{ color: colors.primary, maxWidth: 200 }}
           title={item.title}
-          subtitle={`Total: ${formatPriceToBrazilStyle(item.total)}`}
+          subtitle={item.total ? `Preço estimado: ${formatPriceToBrazilStyle(item.total)}` : 'Produtos sem preço'}
           left={(props) => <Avatar.Icon {...props} size={48} icon="cart" />}
         />
       </TouchableOpacity>

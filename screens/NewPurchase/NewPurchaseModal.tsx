@@ -32,6 +32,13 @@ export function NewPurchaseModal({
     if (title) {
       addPurchase({ products, total: 0, title: title });
       closeModal();
+
+      toaster.show({
+        message: 'Lista adicionada',
+        position: 'middle',
+        type: 'success',
+      });
+
       navigation.navigate('Home');
     } else {
       toaster.show({

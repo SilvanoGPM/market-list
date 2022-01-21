@@ -12,6 +12,7 @@ import {
   TextInput,
   useTheme,
 } from 'react-native-paper';
+
 import { usePurchases } from '../../contexts/PurchaseContext';
 
 import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
@@ -38,13 +39,14 @@ export function ProductInfo({
   const { setPurchases } = usePurchases();
 
   const [showDialog, setShowDialog] = useState(false);
-  const [newPrice, setNewPrice] = useState(product?.price || 0);
+  const [price, setPrice] = useState<string>('');
 
   useEffect(() => {
     if (product) {
-      setNewPrice(product?.price || 0);
+      const { price } = product;
+      setPrice(price ? price.toFixed(2) : '');
     }
-  }, [product]);
+  }, []);
 
   function setProdutcs(mapper: (product: Product) => Product) {
     setPurchases((purchases) => {
@@ -70,14 +72,18 @@ export function ProductInfo({
     });
   }
 
-  function handlePriceChange(price: String) {
-    setNewPrice(Number(price));
-  }
+  function handlePriceChanged(value: string) {
+    const price = Number(value);
 
-  function handlePriceBlur() {
+    if (isNaN(price)) {
+      return;
+    }
+
+    setPrice(value);
+
     setProdutcs((innerProduct) => {
       if (equalsCaseInsensitive(innerProduct.name, product?.name || '')) {
-        return { ...innerProduct, price: newPrice };
+        return { ...innerProduct, price };
       }
 
       return innerProduct;
@@ -154,20 +160,22 @@ export function ProductInfo({
             {product?.name}
           </Headline>
 
-          {product?.price && (
+          {Boolean(product?.price) && (
             <Paragraph style={{ marginBottom: 8 }}>
-              {product.quantity} x {formatPriceToBrazilStyle(product.price)} ={' '}
-              {formatPriceToBrazilStyle(product.quantity * product.price)}
+              {product?.quantity} x{' '}
+              {formatPriceToBrazilStyle(product?.price || 0)} ={' '}
+              {formatPriceToBrazilStyle(
+                (product?.quantity || 0) * (product?.price || 0)
+              )}
             </Paragraph>
           )}
 
           <TextInput
-            keyboardType="decimal-pad"
-            label="Preço unitário"
-            value={String(newPrice || '')}
-            onChangeText={handlePriceChange}
-            onBlur={handlePriceBlur}
             style={{ width: '80%', marginBottom: 16 }}
+            label="Preço"
+            value={price}
+            keyboardType="number-pad"
+            onChangeText={handlePriceChanged}
           />
 
           <InputSpinner

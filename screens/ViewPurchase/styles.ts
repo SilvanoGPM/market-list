@@ -48,6 +48,19 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     elevation: 5,
   },
+
+  fabContainer: {
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
+    right: 10,
+    alignItems: 'flex-end',
+  },
+
+  fab: {
+    padding: 4,
+    borderRadius: 50,
+  },
 });
 
 export default styles;
