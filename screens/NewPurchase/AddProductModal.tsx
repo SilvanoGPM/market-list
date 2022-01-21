@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import { useToast } from 'react-native-paper-toast';
+
 import {
   Button,
   HelperText,
@@ -9,6 +11,9 @@ import {
   Title,
   useTheme,
 } from 'react-native-paper';
+
+import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
+
 import styles from './styles';
 
 interface AddProductModalProps {
@@ -23,6 +28,7 @@ export function AddProductModal({
   setProducts,
 }: AddProductModalProps) {
   const { colors } = useTheme();
+  const toaster = useToast();
 
   const [product, setProduct] = useState<Product>({ quantity: 1 } as Product);
   const [nameDirty, setNameDirty] = useState<boolean>(false);
@@ -45,12 +51,32 @@ export function AddProductModal({
     }
   }
 
+
   function addProduct() {
     const productIsValid = product.name && product.quantity;
 
     if (productIsValid) {
-      setProducts((products) => [...products, product]);
+      setProducts((products) => {
+        const nameAlreadyExists = products.some(({ name }) =>
+          equalsCaseInsensitive(name, product.name)
+        );
+
+        if (nameAlreadyExists) {
+          toaster.show({
+            message: 'Esse item já está na lista',
+            position: 'middle',
+            duration: 2000,
+            type: 'info',
+          });
+
+          return products;
+        }
+
+        return [...products, product];
+      });
+
       setNameDirty(false);
+      setProduct({ quantity: 1 } as Product);
       closeModal();
     }
   }
@@ -75,7 +101,10 @@ export function AddProductModal({
               onChangeText={handleProductName}
               mode="outlined"
             />
-            <HelperText type="error" visible={nameDirty && product.name.length < 3}>
+            <HelperText
+              type="error"
+              visible={nameDirty && product.name.length < 3}
+            >
               Nome precisa conter pelo menos 3 caracteres!
             </HelperText>
           </View>

@@ -13,8 +13,30 @@ const styles = StyleSheet.create({
     paddingVertical: 48,
   },
 
+  product: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 16
+  },
+
+  productListContent: {
+    padding: 16,
+  },
+
   input: {
     marginBottom: 16,
+  },
+
+  changeQuantity: {
+    height: 150,
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderTopWidth: 1,
+    elevation: 5,
   },
 
   buttonsContainer: {

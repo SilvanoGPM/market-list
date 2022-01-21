@@ -1,8 +1,21 @@
 import { useState } from 'react';
-import { FlatList, ListRenderItemInfo, Text, View } from 'react-native';
-import { Badge, Button, Paragraph } from 'react-native-paper';
+import {
+  FlatList,
+  ListRenderItemInfo,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {
+  Badge,
+  Button,
+  Divider,
+  Headline,
+  Paragraph,
+} from 'react-native-paper';
 
 import { AddProductModal } from './AddProductModal';
+import { ChangeProductQuantity } from './ChangeProductQuantity';
 
 import styles from './styles';
 
@@ -12,12 +25,17 @@ export function NewPurchase() {
 
   const [products, setProducts] = useState<Product[]>([]);
 
+  const [productName, setProductName] = useState<string>();
+
   function renderItem({ item }: ListRenderItemInfo<Product>) {
     return (
-      <View>
-        <Paragraph>{item.name}</Paragraph>
-        <Badge>{item.quantity}</Badge>
-      </View>
+      <>
+        <TouchableOpacity style={styles.product} onPress={selectProduct(item.name)}>
+          <Headline>{item.name}</Headline>
+          <Badge size={30}>{item.quantity}</Badge>
+        </TouchableOpacity>
+        <Divider />
+      </>
     );
   }
 
@@ -29,11 +47,24 @@ export function NewPurchase() {
     setAddProductModalVisible(false);
   }
 
+  function selectProduct(name: string) {
+    return () => {
+      setProductName(name);
+    };
+  }
+
+  function closeModal() {
+    setProductName('');
+  }
+
+  const selectedProduct = products.find(({ name }) => name === productName);
+
   return (
     <View style={styles.container}>
       <FlatList
         renderItem={renderItem}
         keyExtractor={({ name }) => `Product - ${name}`}
+        contentContainerStyle={styles.productListContent}
         data={products}
       />
 
@@ -41,6 +72,12 @@ export function NewPurchase() {
         setProducts={setProducts}
         visible={addProductModalVisible}
         closeModal={closeAddProductModal}
+      />
+
+      <ChangeProductQuantity
+        product={selectedProduct}
+        closeModal={closeModal}
+        setProducts={setProducts}
       />
 
       <View style={styles.buttonsContainer}>
