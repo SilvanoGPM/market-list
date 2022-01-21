@@ -3,16 +3,21 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { ToastProvider } from 'react-native-paper-toast';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { PurchaseProvider } from './contexts/PurchaseContext';
 import { Main } from './Main';
+
+import 'react-native-get-random-values';
 
 export default function App() {
   return (
     <SafeAreaProvider>
       <PaperProvider>
         <ToastProvider>
-          <NavigationContainer>
-            <Main />
-          </NavigationContainer>
+          <PurchaseProvider>
+            <NavigationContainer>
+              <Main />
+            </NavigationContainer>
+          </PurchaseProvider>
         </ToastProvider>
       </PaperProvider>
     </SafeAreaProvider>

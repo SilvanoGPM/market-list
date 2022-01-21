@@ -5,7 +5,7 @@ interface Product {
 }
 
 interface Purchase {
-  id: string;
+  id?: string;
   title: string;
   total: number;
   products: Product[];

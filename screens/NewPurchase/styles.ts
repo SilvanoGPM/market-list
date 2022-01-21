@@ -20,6 +20,13 @@ const styles = StyleSheet.create({
     paddingVertical: 16
   },
 
+  productsTitle: {
+    padding: 16,
+    fontSize: 30,
+    textDecorationLine: 'underline',
+    textAlign: 'center',
+  },
+
   productListContent: {
     padding: 16,
   },
@@ -45,6 +52,10 @@ const styles = StyleSheet.create({
     bottom: 32,
     left: 8,
     right: 8,
+  },
+
+  newPurchase: {
+    padding: 16,
   },
 });
 

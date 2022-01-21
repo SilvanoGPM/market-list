@@ -1,27 +1,31 @@
 import { useState } from 'react';
+
 import {
   FlatList,
   ListRenderItemInfo,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {
-  Badge,
-  Button,
-  Divider,
-  Headline,
-  Paragraph,
-} from 'react-native-paper';
+
+import { Badge, Button, Divider, Headline, Title } from 'react-native-paper';
+import { useToast } from 'react-native-paper-toast';
+import { usePurchases } from '../../contexts/PurchaseContext';
 
 import { AddProductModal } from './AddProductModal';
 import { ChangeProductQuantity } from './ChangeProductQuantity';
+import { NewPurchaseModal } from './NewPurchaseModal';
 
 import styles from './styles';
 
 export function NewPurchase() {
+  const { addPurchase } = usePurchases();
+
+  const toaster = useToast();
+
   const [addProductModalVisible, setAddProductModalVisible] =
     useState<boolean>(false);
+
+  const [newPurchaseVisible, setNewPurchaseVisible] = useState<boolean>(false);
 
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -30,7 +34,10 @@ export function NewPurchase() {
   function renderItem({ item }: ListRenderItemInfo<Product>) {
     return (
       <>
-        <TouchableOpacity style={styles.product} onPress={selectProduct(item.name)}>
+        <TouchableOpacity
+          style={styles.product}
+          onPress={selectProduct(item.name)}
+        >
           <Headline>{item.name}</Headline>
           <Badge size={30}>{item.quantity}</Badge>
         </TouchableOpacity>
@@ -53,20 +60,44 @@ export function NewPurchase() {
     };
   }
 
-  function closeModal() {
+  function closeNewPurchaseModal() {
+    setNewPurchaseVisible(false);
+  }
+
+  function openNewPurchaseModal() {
+    setNewPurchaseVisible(true);
+  }
+
+  function closeUpdateQuantityModal() {
     setProductName('');
+  }
+
+  function handleAddPurchase() {
+    if (products.length > 0) {
+      openNewPurchaseModal();
+    } else {
+      toaster.show({
+        message: 'Adicione pelo menos um protudo!',
+        type: 'info',
+        position: 'middle',
+      });
+    }
   }
 
   const selectedProduct = products.find(({ name }) => name === productName);
 
   return (
     <View style={styles.container}>
-      <FlatList
-        renderItem={renderItem}
-        keyExtractor={({ name }) => `Product - ${name}`}
-        contentContainerStyle={styles.productListContent}
-        data={products}
-      />
+      <Title style={styles.productsTitle}>Produtos</Title>
+
+      <View style={{ height: 400 }}>
+        <FlatList
+          renderItem={renderItem}
+          keyExtractor={({ name }) => `Product - ${name}`}
+          contentContainerStyle={styles.productListContent}
+          data={products}
+        />
+      </View>
 
       <AddProductModal
         setProducts={setProducts}
@@ -76,8 +107,14 @@ export function NewPurchase() {
 
       <ChangeProductQuantity
         product={selectedProduct}
-        closeModal={closeModal}
+        closeModal={closeUpdateQuantityModal}
         setProducts={setProducts}
+      />
+
+      <NewPurchaseModal
+        visible={newPurchaseVisible}
+        closeModal={closeNewPurchaseModal}
+        products={products}
       />
 
       <View style={styles.buttonsContainer}>
@@ -90,7 +127,12 @@ export function NewPurchase() {
           Adicionar Produto
         </Button>
 
-        <Button mode="contained" icon="check" style={{ flex: 1 }}>
+        <Button
+          mode="contained"
+          icon="check"
+          style={{ flex: 1 }}
+          onPress={handleAddPurchase}
+        >
           Criar lista
         </Button>
       </View>
