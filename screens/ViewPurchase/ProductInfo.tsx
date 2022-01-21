@@ -1,57 +1,98 @@
-import { useState } from 'react';
-import { Alert, Modal, TouchableWithoutFeedback, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Modal, TouchableWithoutFeedback, View } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
+
 import {
   Avatar,
   Button,
   Dialog,
   Headline,
-  Paragraph,
   Portal,
+  TextInput,
   useTheme,
 } from 'react-native-paper';
+import { usePurchases } from '../../contexts/PurchaseContext';
 
 import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
+import { sum } from '../../utils/sum';
+import { sumProducts } from '../../utils/sumProducts';
 
 import styles from './styles';
 
-interface ChangeProductQuantityProps {
+interface ProductInfoProps {
   product?: Product;
   visible: boolean;
   closeModal: () => void;
   setVisible: (visible: boolean) => void;
-  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 
-export function ChangeProductQuantity({
+export function ProductInfo({
   product,
   visible,
   setVisible,
   closeModal,
-  setProducts,
-}: ChangeProductQuantityProps) {
+}: ProductInfoProps) {
   const { colors } = useTheme();
+  const { setPurchases } = usePurchases();
 
   const [showDialog, setShowDialog] = useState(false);
+  const [newPrice, setNewPrice] = useState(product?.price || 0);
+
+  useEffect(() => {
+    if (product) {
+      setNewPrice(product?.price || 0);
+    }
+  }, [product]);
+
+  function setProdutcs(mapper: (product: Product) => Product) {
+    setPurchases((purchases) => {
+      return purchases.map((purchase) => {
+        const products = purchase.products.map(mapper);
+
+        return {
+          ...purchase,
+          total: sumProducts(products),
+          products,
+        };
+      });
+    });
+  }
 
   function setQuantity(quantity: number) {
-    setProducts((products) =>
-      products.map((innerProduct) => {
-        if (equalsCaseInsensitive(innerProduct.name, product?.name || '')) {
-          return { ...innerProduct, quantity };
-        }
+    setProdutcs((innerProduct) => {
+      if (equalsCaseInsensitive(innerProduct.name, product?.name || '')) {
+        return { ...innerProduct, quantity };
+      }
 
-        return innerProduct;
-      })
-    );
+      return innerProduct;
+    });
+  }
+
+  function handlePriceChange(price: String) {
+    setNewPrice(Number(price));
+  }
+
+  function handlePriceBlur() {
+    setProdutcs((innerProduct) => {
+      if (equalsCaseInsensitive(innerProduct.name, product?.name || '')) {
+        return { ...innerProduct, price: newPrice };
+      }
+
+      return innerProduct;
+    });
   }
 
   function removeProduct() {
-    setProducts((products) =>
-      products.filter(
-        ({ name }) => !equalsCaseInsensitive(name, product?.name || '')
-      )
-    );
+    setPurchases((purchases) => {
+      return purchases.map((purchase) => {
+        return {
+          ...purchase,
+          products: purchase.products.filter(
+            ({ name }) => !equalsCaseInsensitive(name, product?.name || '')
+          ),
+        };
+      });
+    });
 
     closeDialog();
     closeModal();
@@ -110,6 +151,15 @@ export function ChangeProductQuantity({
           <Headline style={{ color: colors.primary, marginBottom: 8 }}>
             {product?.name}
           </Headline>
+
+          <TextInput
+            keyboardType="decimal-pad"
+            label="Preço unitário"
+            value={String(newPrice || '')}
+            onChangeText={handlePriceChange}
+            onBlur={handlePriceBlur}
+            style={{ width: '80%', marginBottom: 16 }}
+          />
 
           <InputSpinner
             skin="square"

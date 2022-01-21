@@ -1,3 +1,13 @@
+import { v4 as uuid } from 'uuid';
+
+import {
+  Avatar,
+  Card,
+  Headline,
+  Paragraph,
+  useTheme,
+} from 'react-native-paper';
+
 import {
   FlatList,
   ListRenderItemInfo,
@@ -5,11 +15,11 @@ import {
   View,
 } from 'react-native';
 
-import { Avatar, Card, Headline, Paragraph, useTheme } from 'react-native-paper';
-
 import { formatTotal } from '../../utils/formatters';
 
 import styles from './styles';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 interface PurchasesListProps {
   purchases: Purchase[];
@@ -17,10 +27,18 @@ interface PurchasesListProps {
 
 export function PurchasesList({ purchases }: PurchasesListProps) {
   const { colors } = useTheme();
+  const navigatation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
+
+  function viewPurchase(id: string) {
+    return () => {
+      navigatation.navigate('ViewPurchase', { id });
+    };
+  }
 
   function renderListItem({ item }: ListRenderItemInfo<Purchase>) {
+
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={viewPurchase(item.id || '')}>
         <Card.Title
           style={[
             { borderColor: colors.primary, backgroundColor: colors.surface },
@@ -45,7 +63,7 @@ export function PurchasesList({ purchases }: PurchasesListProps) {
           style={[{ borderColor: colors.primary }, styles.purchaseList]}
           contentContainerStyle={{ overflow: 'scroll' }}
           data={purchases}
-          keyExtractor={({ id }) => id}
+          keyExtractor={({ id }) => id || uuid()}
           renderItem={renderListItem}
           ListFooterComponent={<View style={{ width: 16 }} />}
           ItemSeparatorComponent={() => {
@@ -61,7 +79,9 @@ export function PurchasesList({ purchases }: PurchasesListProps) {
         />
       ) : (
         <View>
-          <Paragraph style={styles.purchasesEmpty}>Nenhum compra realizada!</Paragraph>
+          <Paragraph style={styles.purchasesEmpty}>
+            Nenhum compra realizada!
+          </Paragraph>
         </View>
       )}
     </View>

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { BackHandler, View } from 'react-native';
 import { FAB, useTheme } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -16,6 +16,25 @@ export function Home({ navigation }: HomeProps) {
   const { purchases } = usePurchases();
 
   const { colors } = useTheme();
+
+  useEffect(() => {
+    function handleGoBack() {
+      if (!navigation.canGoBack()) {
+        BackHandler.exitApp();
+      } else {
+        navigation.goBack();
+        return true;
+      }
+
+      return false;
+    }
+
+    BackHandler.addEventListener('hardwareBackPress', handleGoBack);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleGoBack);
+    };
+  }, []);
 
   function goToNewPurchase() {
     navigation.navigate('NewPurchase');

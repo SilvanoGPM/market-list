@@ -9,7 +9,6 @@ import {
 
 import { Badge, Button, Divider, Headline, Title } from 'react-native-paper';
 import { useToast } from 'react-native-paper-toast';
-import { usePurchases } from '../../contexts/PurchaseContext';
 
 import { AddProductModal } from './AddProductModal';
 import { ChangeProductQuantity } from './ChangeProductQuantity';
@@ -18,14 +17,13 @@ import { NewPurchaseModal } from './NewPurchaseModal';
 import styles from './styles';
 
 export function NewPurchase() {
-  const { addPurchase } = usePurchases();
-
   const toaster = useToast();
 
   const [addProductModalVisible, setAddProductModalVisible] =
     useState<boolean>(false);
 
   const [newPurchaseVisible, setNewPurchaseVisible] = useState<boolean>(false);
+  const [showChangeModal, setShowChangeModal] = useState<boolean>(false);
 
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -57,6 +55,7 @@ export function NewPurchase() {
   function selectProduct(name: string) {
     return () => {
       setProductName(name);
+      setShowChangeModal(true);
     };
   }
 
@@ -70,6 +69,7 @@ export function NewPurchase() {
 
   function closeUpdateQuantityModal() {
     setProductName('');
+    setShowChangeModal(false);
   }
 
   function handleAddPurchase() {
@@ -109,6 +109,8 @@ export function NewPurchase() {
         product={selectedProduct}
         closeModal={closeUpdateQuantityModal}
         setProducts={setProducts}
+        visible={showChangeModal}
+        setVisible={setShowChangeModal}
       />
 
       <NewPurchaseModal

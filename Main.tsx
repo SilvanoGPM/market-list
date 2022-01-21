@@ -5,6 +5,7 @@ import { CustomRouteHeader } from './components/CustomRouteHeader';
 import { StatusBarGradient } from './components/StatusBarGradient';
 import { Home } from './screens/Home';
 import { NewPurchase } from './screens/NewPurchase';
+import { ViewPurchase } from './screens/ViewPurchase';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -19,12 +20,22 @@ export function Main() {
           component={Home}
           options={{ headerShown: false }}
         />
+
         <Stack.Screen
           name="NewPurchase"
           component={NewPurchase}
           options={{
             header: (props) => <CustomRouteHeader {...props} />,
-            headerTitle: "Nova lista de compras"
+            headerTitle: 'Nova lista de compras',
+          }}
+        />
+
+        <Stack.Screen
+          name="ViewPurchase"
+          component={ViewPurchase}
+          options={{
+            header: (props) => <CustomRouteHeader {...props} />,
+            headerTitle: 'Visualizar lista',
           }}
         />
       </Stack.Navigator>

@@ -33,8 +33,7 @@ export function AddProductModal({
   const [product, setProduct] = useState<Product>({ quantity: 1 } as Product);
   const [nameDirty, setNameDirty] = useState<boolean>(false);
 
-  function handleProductName(value: string) {
-    const name = value.trim();
+  function handleProductName(name: string) {
     setProduct({ ...product, name });
     setNameDirty(true);
   }
@@ -53,12 +52,13 @@ export function AddProductModal({
 
 
   function addProduct() {
-    const productIsValid = product.name && product.quantity;
+    const productName = product.name.trim();
+    const productIsValid = productName && product.quantity;
 
     if (productIsValid) {
       setProducts((products) => {
         const nameAlreadyExists = products.some(({ name }) =>
-          equalsCaseInsensitive(name, product.name)
+          equalsCaseInsensitive(name, productName)
         );
 
         if (nameAlreadyExists) {
@@ -72,7 +72,7 @@ export function AddProductModal({
           return products;
         }
 
-        return [...products, product];
+        return [...products, { ...product, name: productName }];
       });
 
       setNameDirty(false);

@@ -27,8 +27,10 @@ export function NewPurchaseModal({
   const [name, setName] = useState<string>('');
 
   function newPurchase() {
-    if (name) {
-      addPurchase({ products, total: 0, title: name });
+    const title = name.trim();
+
+    if (title) {
+      addPurchase({ products, total: 0, title: title });
       closeModal();
       navigation.navigate('Home');
     } else {
@@ -41,7 +43,7 @@ export function NewPurchaseModal({
   }
 
   function handleNameChange(name: string) {
-    setName(name.trim());
+    setName(name);
   }
 
   return (

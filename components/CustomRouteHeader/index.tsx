@@ -1,5 +1,5 @@
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, } from 'react-native';
 import { Avatar, Title, useTheme } from 'react-native-paper';
 
 import { DefaultGradient } from '../DefaultGradient';

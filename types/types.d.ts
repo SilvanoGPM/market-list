@@ -2,6 +2,7 @@ interface Product {
   name: string;
   quantity: number;
   price?: number;
+  caught: boolean;
 }
 
 interface Purchase {
