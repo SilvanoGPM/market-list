@@ -80,7 +80,7 @@ export function PurchasesList({ purchases }: PurchasesListProps) {
       ) : (
         <View>
           <Paragraph style={styles.purchasesEmpty}>
-            Nenhum compra realizada!
+            Nenhuma compra realizada!
           </Paragraph>
         </View>
       )}
