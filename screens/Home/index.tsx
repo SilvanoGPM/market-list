@@ -10,13 +10,14 @@ import { usePurchases } from '../../contexts/PurchaseContext';
 import { useBackInAnimation } from '../../hooks/useBackInAnimation';
 import { useZoomAnimation } from '../../hooks/useZoomAnimation';
 import { useBackHandlerConfig } from '../../hooks/useBackHandlerConfig';
+import { PurchasesLoading } from './PurchasesLoading';
 
 import styles from './styles';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 export function Home({ navigation }: HomeProps): JSX.Element {
-  const { purchases } = usePurchases();
+  const { purchases, purchasesLoading } = usePurchases();
 
   const { colors } = useTheme();
 
@@ -36,6 +37,10 @@ export function Home({ navigation }: HomeProps): JSX.Element {
 
   function goToNewPurchase(): void {
     navigation.navigate('NewPurchase');
+  }
+
+  if (purchasesLoading) {
+    return <PurchasesLoading />;
   }
 
   return (

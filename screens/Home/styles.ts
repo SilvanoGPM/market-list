@@ -81,6 +81,16 @@ const styles = StyleSheet.create({
     padding: 4,
     borderRadius: 50,
   },
+
+  loadingTitle: {
+    fontWeight: 'bold',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 5,
+    elevation: 10,
+    marginBottom: 40,
+    fontSize: 32,
+    textDecorationLine: 'underline',
+  },
 });
 
 export default styles;

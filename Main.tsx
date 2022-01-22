@@ -7,6 +7,7 @@ import { StatusBarGradient } from './components/StatusBarGradient';
 import { Home } from './screens/Home';
 import { NewPurchase } from './screens/NewPurchase';
 import { ViewPurchase } from './screens/ViewPurchase';
+import { Splash } from './screens/Splash';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -15,7 +16,13 @@ export function Main(): JSX.Element {
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBarGradient />
 
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Splash">
+        <Stack.Screen
+          name="Splash"
+          component={Splash}
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+
         <Stack.Screen
           name="Home"
           component={Home}
