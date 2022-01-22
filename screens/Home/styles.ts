@@ -82,14 +82,9 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 
-  loadingTitle: {
-    fontWeight: 'bold',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 5,
-    elevation: 10,
-    marginBottom: 40,
-    fontSize: 32,
-    textDecorationLine: 'underline',
+  imageLoading: {
+    position: 'absolute',
+    top: 50,
   },
 });
 

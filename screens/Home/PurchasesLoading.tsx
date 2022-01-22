@@ -1,7 +1,11 @@
 import React from 'react';
 import { ImageBackground, View } from 'react-native';
-import { ActivityIndicator, Headline, useTheme } from 'react-native-paper';
-
+import {
+  ActivityIndicator,
+  Avatar,
+  Headline,
+  useTheme,
+} from 'react-native-paper';
 import styles from './styles';
 
 export function PurchasesLoading(): JSX.Element {
@@ -17,9 +21,13 @@ export function PurchasesLoading(): JSX.Element {
         alignItems: 'center',
       }}
     >
-      <Headline style={[{ color: colors.primary }, styles.loadingTitle]}>
-        Market List
-      </Headline>
+      <Avatar.Image
+        size={100}
+        style={[{ backgroundColor: colors.background }, styles.imageLoading]}
+        source={require('../../assets/icon.png')}
+      />
+
+      <Headline style={{ marginBottom: 96 }}>Carregando compras...</Headline>
 
       <ActivityIndicator size={40} />
 
