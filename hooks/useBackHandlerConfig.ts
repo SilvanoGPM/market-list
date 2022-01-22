@@ -1,5 +1,5 @@
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BackHandler } from 'react-native';
 
 type UseBackHandlerConfig = NativeStackNavigationProp<

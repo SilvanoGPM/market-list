@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Badge, Button, Divider, Headline, Title } from 'react-native-paper';
+import { useToast } from 'react-native-paper-toast';
 
 import {
   FlatList,
@@ -6,9 +8,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
-import { Badge, Button, Divider, Headline, Title } from 'react-native-paper';
-import { useToast } from 'react-native-paper-toast';
 
 import { AddProductModal } from './AddProductModal';
 import { ChangeProductQuantity } from './ChangeProductQuantity';

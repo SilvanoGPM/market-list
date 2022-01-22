@@ -3,6 +3,7 @@ import { TouchableOpacity, } from 'react-native';
 import { Avatar, Title, useTheme } from 'react-native-paper';
 
 import { DefaultGradient } from '../DefaultGradient';
+
 import styles from './styles';
 
 export function CustomRouteHeader({

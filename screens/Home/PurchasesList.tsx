@@ -1,4 +1,6 @@
 import { v4 as uuid } from 'uuid';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import {
   Avatar,
@@ -18,8 +20,6 @@ import {
 import { formatPriceToBrazilStyle } from '../../utils/formatters';
 
 import styles from './styles';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 interface PurchasesListProps {
   purchases: Purchase[];

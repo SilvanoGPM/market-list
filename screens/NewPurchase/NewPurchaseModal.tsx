@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { View, Modal, TouchableWithoutFeedback } from 'react-native';
 import { Button, Headline, TextInput, useTheme } from 'react-native-paper';
 import { useToast } from 'react-native-paper-toast';
+
 import { usePurchases } from '../../contexts/PurchaseContext';
 
 import styles from './styles';

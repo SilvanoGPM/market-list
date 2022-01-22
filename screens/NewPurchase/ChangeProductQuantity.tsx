@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { Alert, Modal, TouchableWithoutFeedback, View } from 'react-native';
+import { Modal, TouchableWithoutFeedback, View } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
+
 import {
   Avatar,
   Button,
   Dialog,
   Headline,
-  Paragraph,
   Portal,
   useTheme,
 } from 'react-native-paper';

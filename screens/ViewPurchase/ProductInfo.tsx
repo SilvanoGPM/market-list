@@ -14,7 +14,6 @@ import {
 } from 'react-native-paper';
 
 import { usePurchases } from '../../contexts/PurchaseContext';
-
 import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
 import { formatPriceToBrazilStyle } from '../../utils/formatters';
 import { sumProducts } from '../../utils/sumProducts';

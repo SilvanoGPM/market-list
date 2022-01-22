@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react';
-import { Animated, BackHandler, View } from 'react-native';
+import { Animated, View } from 'react-native';
 import { FAB, useTheme } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { Header } from './Header';
 import { PurchasesList } from './PurchasesList';
 import { PurchasesInfo } from './PurchasesInfo';
-
-import styles from './styles';
 import { usePurchases } from '../../contexts/PurchaseContext';
 import { useBackInAnimation } from '../../hooks/useBackInAnimation';
 import { useZoomAnimation } from '../../hooks/useZoomAnimation';
 import { useBackHandlerConfig } from '../../hooks/useBackHandlerConfig';
+
+import styles from './styles';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 

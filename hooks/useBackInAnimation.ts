@@ -7,6 +7,7 @@ interface UseBackInAnimationProps {
   direction?: AnimationDirection;
   delay?: number;
 }
+
 const directions = new Map<AnimationDirection, number>();
 
 directions.set('left', 1000);
