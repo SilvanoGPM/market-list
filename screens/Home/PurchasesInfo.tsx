@@ -1,3 +1,4 @@
+import React from 'react';
 import { View } from 'react-native';
 
 import {
@@ -18,7 +19,7 @@ interface PurchasesInfoProps {
   purchases: Purchase[];
 }
 
-export function PurchasesInfo({ purchases }: PurchasesInfoProps) {
+export function PurchasesInfo({ purchases }: PurchasesInfoProps): JSX.Element {
   const { colors } = useTheme();
 
   const totalPrice = sum(purchases, ({ total }) => total);

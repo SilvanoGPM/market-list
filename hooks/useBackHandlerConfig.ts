@@ -7,9 +7,9 @@ type UseBackHandlerConfig = NativeStackNavigationProp<
   'Home'
 >;
 
-export function useBackHandlerConfig(navigation: UseBackHandlerConfig) {
+export function useBackHandlerConfig(navigation: UseBackHandlerConfig): void {
   useEffect(() => {
-    function handleGoBack() {
+    function handleGoBack(): boolean {
       if (!navigation.canGoBack()) {
         BackHandler.exitApp();
       } else {
@@ -25,5 +25,5 @@ export function useBackHandlerConfig(navigation: UseBackHandlerConfig) {
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleGoBack);
     };
-  }, []);
+  }, [navigation]);
 }

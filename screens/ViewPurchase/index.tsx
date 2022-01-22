@@ -1,5 +1,5 @@
+import React, { useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useState } from 'react';
 import { View } from 'react-native';
 import { useToast } from 'react-native-paper-toast';
 
@@ -24,7 +24,10 @@ type ViewPurchaseProps = NativeStackScreenProps<
   'ViewPurchase'
 >;
 
-export function ViewPurchase({ navigation, route }: ViewPurchaseProps) {
+export function ViewPurchase({
+  navigation,
+  route,
+}: ViewPurchaseProps): JSX.Element {
   const { colors } = useTheme();
   const { purchases, setPurchases } = usePurchases();
   const toaster = useToast();
@@ -44,7 +47,7 @@ export function ViewPurchase({ navigation, route }: ViewPurchaseProps) {
     });
   }
 
-  function deletePurchase() {
+  function deletePurchase(): void {
     const newPurchases = purchases.filter(({ id }) => purchase?.id !== id);
     setPurchases(newPurchases);
 
@@ -57,11 +60,11 @@ export function ViewPurchase({ navigation, route }: ViewPurchaseProps) {
     navigation.goBack();
   }
 
-  function openDeleteDialog() {
+  function openDeleteDialog(): void {
     setShowDeleteDialog(true);
   }
 
-  function closeDeleteDialog() {
+  function closeDeleteDialog(): void {
     setShowDeleteDialog(false);
   }
 

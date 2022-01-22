@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { useToast } from 'react-native-paper-toast';
 
@@ -26,31 +26,31 @@ export function AddProductModal({
   visible,
   closeModal,
   setProducts,
-}: AddProductModalProps) {
+}: AddProductModalProps): JSX.Element {
   const { colors } = useTheme();
   const toaster = useToast();
 
   const [product, setProduct] = useState<Product>({ quantity: 1 } as Product);
   const [nameDirty, setNameDirty] = useState<boolean>(false);
 
-  function handleProductName(name: string) {
+  function handleProductName(name: string): void {
     setProduct({ ...product, name });
     setNameDirty(true);
   }
 
-  function handleProductQuantity(value: string) {
+  function handleProductQuantity(value: string): void {
     const quantityConverted = Number(value);
     const quantity = quantityConverted || 0;
     setProduct({ ...product, quantity });
   }
 
-  function validateQuantity() {
+  function validateQuantity(): void {
     if (!product.quantity) {
       setProduct({ ...product, quantity: 1 });
     }
   }
 
-  function addProduct() {
+  function addProduct(): void {
     const productName = product.name.trim();
     const productIsValid = productName && product.quantity;
 

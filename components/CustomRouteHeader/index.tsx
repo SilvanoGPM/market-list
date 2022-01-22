@@ -1,5 +1,6 @@
+import React from 'react';
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
-import { TouchableOpacity, } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Avatar, Title, useTheme } from 'react-native-paper';
 
 import { DefaultGradient } from '../DefaultGradient';
@@ -9,10 +10,10 @@ import styles from './styles';
 export function CustomRouteHeader({
   navigation,
   options,
-}: NativeStackHeaderProps) {
+}: NativeStackHeaderProps): JSX.Element {
   const { colors } = useTheme();
 
-  function goBack() {
+  function goBack(): void {
     navigation.goBack();
   }
 

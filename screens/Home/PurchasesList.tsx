@@ -1,3 +1,4 @@
+import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -25,9 +26,25 @@ interface PurchasesListProps {
   purchases: Purchase[];
 }
 
-export function PurchasesList({ purchases }: PurchasesListProps) {
+function ListSeparator(): JSX.Element {
+  return (
+    <View
+      style={{
+        height: '100%',
+        width: 8,
+      }}
+    />
+  );
+}
+
+function CartIcon(): JSX.Element {
+  return <Avatar.Icon size={48} icon="cart" />;
+}
+
+export function PurchasesList({ purchases }: PurchasesListProps): JSX.Element {
   const { colors } = useTheme();
-  const navigatation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
+  const navigatation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
 
   function viewPurchase(id: string) {
     return () => {
@@ -35,8 +52,7 @@ export function PurchasesList({ purchases }: PurchasesListProps) {
     };
   }
 
-  function renderListItem({ item }: ListRenderItemInfo<Purchase>) {
-
+  function renderListItem({ item }: ListRenderItemInfo<Purchase>): JSX.Element {
     return (
       <TouchableOpacity onPress={viewPurchase(item.id || '')}>
         <Card.Title
@@ -46,8 +62,12 @@ export function PurchasesList({ purchases }: PurchasesListProps) {
           ]}
           titleStyle={{ color: colors.primary, maxWidth: 200 }}
           title={item.title}
-          subtitle={item.total ? `Preço estimado: ${formatPriceToBrazilStyle(item.total)}` : 'Produtos sem preço'}
-          left={(props) => <Avatar.Icon {...props} size={48} icon="cart" />}
+          subtitle={
+            item.total
+              ? `Preço estimado: ${formatPriceToBrazilStyle(item.total)}`
+              : 'Produtos sem preço'
+          }
+          left={CartIcon}
         />
       </TouchableOpacity>
     );
@@ -57,7 +77,7 @@ export function PurchasesList({ purchases }: PurchasesListProps) {
     <View style={styles.purchasesListContainer}>
       <Headline style={{ marginBottom: 8 }}>Compras</Headline>
 
-      {Boolean(purchases.length) ? (
+      {purchases.length ? (
         <FlatList
           horizontal
           style={[{ borderColor: colors.primary }, styles.purchaseList]}
@@ -66,16 +86,7 @@ export function PurchasesList({ purchases }: PurchasesListProps) {
           keyExtractor={({ id }) => id || uuid()}
           renderItem={renderListItem}
           ListFooterComponent={<View style={{ width: 16 }} />}
-          ItemSeparatorComponent={() => {
-            return (
-              <View
-                style={{
-                  height: '100%',
-                  width: 8,
-                }}
-              />
-            );
-          }}
+          ItemSeparatorComponent={ListSeparator}
         />
       ) : (
         <View>

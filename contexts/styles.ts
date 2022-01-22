@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   title: {
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     fontSize: 32,
     textDecorationLine: 'underline',
-  }
+  },
 });
 
 export default styles;

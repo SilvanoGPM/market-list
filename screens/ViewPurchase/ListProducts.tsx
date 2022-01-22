@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import {
   FlatList,
@@ -26,7 +26,9 @@ interface ListProductsProps {
   products?: Product[];
 }
 
-export function ListProducts({ products = [] }: ListProductsProps) {
+export function ListProducts({
+  products = [],
+}: ListProductsProps): JSX.Element {
   const { colors } = useTheme();
   const { setPurchases } = usePurchases();
 
@@ -67,13 +69,18 @@ export function ListProducts({ products = [] }: ListProductsProps) {
     };
   }
 
-  function renderItem({ item }: ListRenderItemInfo<Product>) {
+  function renderItem({ item }: ListRenderItemInfo<Product>): JSX.Element {
     return (
       <>
-        <TouchableOpacity style={styles.listItemContainer} onPress={selectProduct(item.name)}>
+        <TouchableOpacity
+          style={styles.listItemContainer}
+          onPress={selectProduct(item.name)}
+        >
           <View style={{ flex: 0.9 }}>
             <Paragraph style={styles.listItemPrice}>
-              {item.price ? formatPriceToBrazilStyle(item.price || 0) : 'Sem preço'}
+              {item.price
+                ? formatPriceToBrazilStyle(item.price || 0)
+                : 'Sem preço'}
             </Paragraph>
 
             <Headline
@@ -104,7 +111,7 @@ export function ListProducts({ products = [] }: ListProductsProps) {
     );
   }
 
-  function closeUpdateQuantityModal() {
+  function closeUpdateQuantityModal(): void {
     setProductName('');
     setShowChangeModal(false);
   }

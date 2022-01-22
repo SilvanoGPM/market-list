@@ -1,3 +1,4 @@
+import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomRouteHeader } from './components/CustomRouteHeader';
@@ -9,7 +10,7 @@ import { ViewPurchase } from './screens/ViewPurchase';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export function Main() {
+export function Main(): JSX.Element {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBarGradient />
@@ -25,7 +26,7 @@ export function Main() {
           name="NewPurchase"
           component={NewPurchase}
           options={{
-            header: (props) => <CustomRouteHeader {...props} />,
+            header: CustomRouteHeader,
             headerTitle: 'Nova lista de compras',
           }}
         />
@@ -34,7 +35,7 @@ export function Main() {
           name="ViewPurchase"
           component={ViewPurchase}
           options={{
-            header: (props) => <CustomRouteHeader {...props} />,
+            header: CustomRouteHeader,
             headerTitle: 'Visualizar lista',
           }}
         />

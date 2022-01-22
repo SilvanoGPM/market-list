@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Modal, TouchableWithoutFeedback, View } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
 
@@ -29,12 +29,12 @@ export function ChangeProductQuantity({
   setVisible,
   closeModal,
   setProducts,
-}: ChangeProductQuantityProps) {
+}: ChangeProductQuantityProps): JSX.Element {
   const { colors } = useTheme();
 
   const [showDialog, setShowDialog] = useState(false);
 
-  function setQuantity(quantity: number) {
+  function setQuantity(quantity: number): void {
     setProducts((products) =>
       products.map((innerProduct) => {
         if (equalsCaseInsensitive(innerProduct.name, product?.name || '')) {
@@ -46,7 +46,11 @@ export function ChangeProductQuantity({
     );
   }
 
-  function removeProduct() {
+  function closeDialog(): void {
+    setShowDialog(false);
+  }
+
+  function removeProduct(): void {
     setProducts((products) =>
       products.filter(
         ({ name }) => !equalsCaseInsensitive(name, product?.name || '')
@@ -57,21 +61,17 @@ export function ChangeProductQuantity({
     closeModal();
   }
 
-  function openDialog() {
+  function openDialog(): void {
     setShowDialog(true);
     setVisible(false);
   }
 
-  function closeDialog() {
-    setShowDialog(false);
-  }
-
-  function resetQuantity() {
+  function resetQuantity(): void {
     setQuantity(1);
     closeDialog();
   }
 
-  function updateQuantity(quantity: number) {
+  function updateQuantity(quantity: number): void {
     if (quantity === 0) {
       openDialog();
     }

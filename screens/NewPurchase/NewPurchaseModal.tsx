@@ -1,6 +1,6 @@
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useState } from 'react';
 import { View, Modal, TouchableWithoutFeedback } from 'react-native';
 import { Button, Headline, TextInput, useTheme } from 'react-native-paper';
 import { useToast } from 'react-native-paper-toast';
@@ -19,19 +19,20 @@ export function NewPurchaseModal({
   products,
   visible,
   closeModal,
-}: NewPurchaseModalProps) {
+}: NewPurchaseModalProps): JSX.Element {
   const { colors } = useTheme();
   const toaster = useToast();
   const { addPurchase } = usePurchases();
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
 
   const [name, setName] = useState<string>('');
 
-  function newPurchase() {
+  function newPurchase(): void {
     const title = name.trim();
 
     if (title) {
-      addPurchase({ products, total: 0, title: title });
+      addPurchase({ products, total: 0, title });
       closeModal();
 
       toaster.show({
@@ -50,8 +51,8 @@ export function NewPurchaseModal({
     }
   }
 
-  function handleNameChange(name: string) {
-    setName(name);
+  function handleNameChange(value: string): void {
+    setName(value);
   }
 
   return (

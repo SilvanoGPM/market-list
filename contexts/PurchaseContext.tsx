@@ -1,4 +1,12 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+
 import { ImageBackground, View } from 'react-native';
 import { ActivityIndicator, Headline, useTheme } from 'react-native-paper';
 import { v4 as uuid } from 'uuid';
@@ -23,20 +31,20 @@ interface PurchaseProviderProps {
 
 const PURCHASES_KEY = '@SkyG0D/Purchases';
 
-const repository = new Repository();
-
-export function PurchaseProvider({ children }: PurchaseProviderProps) {
+export function PurchaseProvider({
+  children,
+}: PurchaseProviderProps): JSX.Element {
   const { colors } = useTheme();
 
   const [purchases, setPurchases] = useState<Purchase[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    async function loadPurchases() {
-      const purchases = await repository.get<Purchase[]>(PURCHASES_KEY);
+    async function loadPurchases(): Promise<void> {
+      const purchasesFound = await Repository.get<Purchase[]>(PURCHASES_KEY);
 
-      if (purchases) {
-        setPurchases(purchases);
+      if (purchasesFound) {
+        setPurchases(purchasesFound);
       }
 
       setLoading(false);
@@ -46,18 +54,26 @@ export function PurchaseProvider({ children }: PurchaseProviderProps) {
   }, []);
 
   useEffect(() => {
-    async function savePurchases() {
-      await repository.save(PURCHASES_KEY, purchases);
+    async function savePurchases(): Promise<void> {
+      await Repository.save(PURCHASES_KEY, purchases);
     }
 
     if (!loading) {
       savePurchases();
     }
-  }, [purchases]);
+  }, [purchases, loading]);
 
-  function addPurchase(purchase: Purchase) {
-    setPurchases([{ ...purchase, id: uuid() }, ...purchases]);
-  }
+  const addPurchase = useCallback(
+    (purchase: Purchase): void => {
+      setPurchases([{ ...purchase, id: uuid() }, ...purchases]);
+    },
+    [setPurchases, purchases]
+  );
+
+  const defaultValue = useMemo(
+    () => ({ purchases, setPurchases, addPurchase }),
+    [purchases, setPurchases, addPurchase]
+  );
 
   if (loading) {
     return (
@@ -70,12 +86,7 @@ export function PurchaseProvider({ children }: PurchaseProviderProps) {
           alignItems: 'center',
         }}
       >
-        <Headline
-          style={[
-            { color: colors.primary },
-            styles.title,
-          ]}
-        >
+        <Headline style={[{ color: colors.primary }, styles.title]}>
           Market List
         </Headline>
         <ActivityIndicator size={40} />
@@ -90,12 +101,12 @@ export function PurchaseProvider({ children }: PurchaseProviderProps) {
   }
 
   return (
-    <PurchaseContext.Provider value={{ purchases, setPurchases, addPurchase }}>
+    <PurchaseContext.Provider value={defaultValue}>
       {children}
     </PurchaseContext.Provider>
   );
 }
 
-export function usePurchases() {
+export function usePurchases(): PurchaseContextProps {
   return useContext(PurchaseContext);
 }

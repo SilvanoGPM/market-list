@@ -1,3 +1,4 @@
+import React from 'react';
 import { Animated, View } from 'react-native';
 import { FAB, useTheme } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -14,7 +15,7 @@ import styles from './styles';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-export function Home({ navigation }: HomeProps) {
+export function Home({ navigation }: HomeProps): JSX.Element {
   const { purchases } = usePurchases();
 
   const { colors } = useTheme();
@@ -33,7 +34,7 @@ export function Home({ navigation }: HomeProps) {
 
   const fabAnimationStyle = useZoomAnimation();
 
-  function goToNewPurchase() {
+  function goToNewPurchase(): void {
     navigation.navigate('NewPurchase');
   }
 

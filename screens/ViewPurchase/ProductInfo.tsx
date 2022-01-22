@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, TouchableWithoutFeedback, View } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
 
@@ -32,7 +32,7 @@ export function ProductInfo({
   visible,
   setVisible,
   closeModal,
-}: ProductInfoProps) {
+}: ProductInfoProps): JSX.Element {
   const { colors } = useTheme();
   const { setPurchases } = usePurchases();
 
@@ -41,12 +41,12 @@ export function ProductInfo({
 
   useEffect(() => {
     if (product) {
-      const { price } = product;
-      setPrice(price ? price.toFixed(2) : '');
+      const productPrice = product.price;
+      setPrice(productPrice ? productPrice.toFixed(2) : '');
     }
   }, [product]);
 
-  function setProdutcs(mapper: (product: Product) => Product) {
+  function setProdutcs(mapper: (innerProduct: Product) => Product): void {
     setPurchases((purchases) => {
       return purchases.map((purchase) => {
         const products = purchase.products.map(mapper);
@@ -60,7 +60,7 @@ export function ProductInfo({
     });
   }
 
-  function setQuantity(quantity: number) {
+  function setQuantity(quantity: number): void {
     setProdutcs((innerProduct) => {
       if (equalsCaseInsensitive(innerProduct.name, product?.name || '')) {
         return { ...innerProduct, quantity };
@@ -70,10 +70,10 @@ export function ProductInfo({
     });
   }
 
-  function handlePriceChanged(value: string) {
-    const price = Number(value);
+  function handlePriceChanged(value: string): void {
+    const newPrice = Number(value);
 
-    if (isNaN(price)) {
+    if (Number.isNaN(newPrice)) {
       return;
     }
 
@@ -81,14 +81,23 @@ export function ProductInfo({
 
     setProdutcs((innerProduct) => {
       if (equalsCaseInsensitive(innerProduct.name, product?.name || '')) {
-        return { ...innerProduct, price };
+        return { ...innerProduct, price: newPrice };
       }
 
       return innerProduct;
     });
   }
 
-  function removeProduct() {
+  function openDialog(): void {
+    setShowDialog(true);
+    setVisible(false);
+  }
+
+  function closeDialog(): void {
+    setShowDialog(false);
+  }
+
+  function removeProduct(): void {
     setPurchases((purchases) => {
       return purchases.map((purchase) => {
         return {
@@ -104,21 +113,12 @@ export function ProductInfo({
     closeModal();
   }
 
-  function openDialog() {
-    setShowDialog(true);
-    setVisible(false);
-  }
-
-  function closeDialog() {
-    setShowDialog(false);
-  }
-
-  function resetQuantity() {
+  function resetQuantity(): void {
     setQuantity(1);
     closeDialog();
   }
 
-  function updateQuantity(quantity: number) {
+  function updateQuantity(quantity: number): void {
     if (quantity === 0) {
       openDialog();
     }

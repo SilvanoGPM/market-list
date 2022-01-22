@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Badge, Button, Divider, Headline, Title } from 'react-native-paper';
 import { useToast } from 'react-native-paper-toast';
 
@@ -15,7 +15,7 @@ import { NewPurchaseModal } from './NewPurchaseModal';
 
 import styles from './styles';
 
-export function NewPurchase() {
+export function NewPurchase(): JSX.Element {
   const toaster = useToast();
 
   const [addProductModalVisible, setAddProductModalVisible] =
@@ -28,7 +28,14 @@ export function NewPurchase() {
 
   const [productName, setProductName] = useState<string>();
 
-  function renderItem({ item }: ListRenderItemInfo<Product>) {
+  function selectProduct(name: string) {
+    return () => {
+      setProductName(name);
+      setShowChangeModal(true);
+    };
+  }
+
+  function renderItem({ item }: ListRenderItemInfo<Product>): JSX.Element {
     return (
       <>
         <TouchableOpacity
@@ -43,35 +50,28 @@ export function NewPurchase() {
     );
   }
 
-  function openAddProductModal() {
+  function openAddProductModal(): void {
     setAddProductModalVisible(true);
   }
 
-  function closeAddProductModal() {
+  function closeAddProductModal(): void {
     setAddProductModalVisible(false);
   }
 
-  function selectProduct(name: string) {
-    return () => {
-      setProductName(name);
-      setShowChangeModal(true);
-    };
-  }
-
-  function closeNewPurchaseModal() {
+  function closeNewPurchaseModal(): void {
     setNewPurchaseVisible(false);
   }
 
-  function openNewPurchaseModal() {
+  function openNewPurchaseModal(): void {
     setNewPurchaseVisible(true);
   }
 
-  function closeUpdateQuantityModal() {
+  function closeUpdateQuantityModal(): void {
     setProductName('');
     setShowChangeModal(false);
   }
 
-  function handleAddPurchase() {
+  function handleAddPurchase(): void {
     if (products.length > 0) {
       openNewPurchaseModal();
     } else {
