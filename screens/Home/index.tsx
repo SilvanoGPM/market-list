@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BackHandler, View } from 'react-native';
+import { Animated, BackHandler, View } from 'react-native';
 import { FAB, useTheme } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -9,6 +9,9 @@ import { PurchasesInfo } from './PurchasesInfo';
 
 import styles from './styles';
 import { usePurchases } from '../../contexts/PurchaseContext';
+import { useBackInAnimation } from '../../hooks/useBackInAnimation';
+import { useZoomAnimation } from '../../hooks/useZoomAnimation';
+import { useBackHandlerConfig } from '../../hooks/useBackHandlerConfig';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -17,24 +20,19 @@ export function Home({ navigation }: HomeProps) {
 
   const { colors } = useTheme();
 
-  useEffect(() => {
-    function handleGoBack() {
-      if (!navigation.canGoBack()) {
-        BackHandler.exitApp();
-      } else {
-        navigation.goBack();
-        return true;
-      }
+  useBackHandlerConfig(navigation);
 
-      return false;
-    }
+  const purchaseInfoAnimationStyle = useBackInAnimation({
+    direction: 'left',
+    delay: 1000,
+  });
 
-    BackHandler.addEventListener('hardwareBackPress', handleGoBack);
+  const purchaseListAnimationStyle = useBackInAnimation({
+    direction: 'right',
+    delay: 500,
+  });
 
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleGoBack);
-    };
-  }, []);
+  const fabAnimationStyle = useZoomAnimation();
 
   function goToNewPurchase() {
     navigation.navigate('NewPurchase');
@@ -44,16 +42,22 @@ export function Home({ navigation }: HomeProps) {
     <View style={{ flex: 1, backgroundColor: colors.background }}>
       <Header />
 
-      <PurchasesList purchases={purchases} />
+      <Animated.View style={purchaseListAnimationStyle}>
+        <PurchasesList purchases={purchases} />
+      </Animated.View>
 
-      <PurchasesInfo purchases={purchases} />
+      <Animated.View style={purchaseInfoAnimationStyle}>
+        <PurchasesInfo purchases={purchases} />
+      </Animated.View>
 
       <View style={styles.fabContainer}>
-        <FAB
-          style={[{ backgroundColor: colors.primary }, styles.fab]}
-          icon="plus"
-          onPress={goToNewPurchase}
-        />
+        <Animated.View style={fabAnimationStyle}>
+          <FAB
+            style={[{ backgroundColor: colors.primary }, styles.fab]}
+            icon="plus"
+            onPress={goToNewPurchase}
+          />
+        </Animated.View>
       </View>
     </View>
   );

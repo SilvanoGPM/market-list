@@ -1,7 +1,9 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { View } from 'react-native';
+import { View, Animated } from 'react-native';
 import { Title, useTheme } from 'react-native-paper';
 import Svg, { Polygon } from 'react-native-svg';
+
+import { useBackInAnimation } from '../../hooks/useBackInAnimation';
 
 import styles from './styles';
 
@@ -22,6 +24,10 @@ function AngledShape({ color }: AngledShapeProps) {
 export function Header() {
   const { colors } = useTheme();
 
+  const animationStyle = useBackInAnimation({
+    direction: 'top',
+  });
+
   const gradientOptions = {
     colors: [colors.accent, colors.primary],
     start: { x: -1, y: 0 },
@@ -30,11 +36,11 @@ export function Header() {
 
   return (
     <LinearGradient {...gradientOptions} style={styles.header}>
-      <View style={styles.headerTitleContainer}>
+      <Animated.View style={[animationStyle, styles.headerTitleContainer]}>
         <Title style={[{ color: colors.background }, styles.headerTitle]}>
           Market{'\n'}List
         </Title>
-      </View>
+      </Animated.View>
 
       <AngledShape color={colors.background} />
     </LinearGradient>
