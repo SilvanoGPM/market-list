@@ -74,6 +74,7 @@ export function ChangeProductQuantity({
   function updateQuantity(quantity: number): void {
     if (quantity === 0) {
       openDialog();
+      return;
     }
 
     setQuantity(quantity);

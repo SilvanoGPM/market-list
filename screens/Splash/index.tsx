@@ -10,8 +10,6 @@ export function Splash({ navigation }: SplashProps): JSX.Element {
     navigation.dispatch(StackActions.replace('Home'));
   }
 
-  console.log('AQUI');
-
   return (
     <LottieView
       style={{

@@ -23,7 +23,6 @@ import styles from './styles';
 interface ProductInfoProps {
   product?: Product;
   visible: boolean;
-  closeModal: () => void;
   setVisible: (visible: boolean) => void;
 }
 
@@ -31,20 +30,20 @@ export function ProductInfo({
   product,
   visible,
   setVisible,
-  closeModal,
 }: ProductInfoProps): JSX.Element {
   const { colors } = useTheme();
   const { setPurchases } = usePurchases();
 
   const [showDialog, setShowDialog] = useState(false);
   const [price, setPrice] = useState<string>('');
+  const [priceUpdating, setPriceUpdating] = useState<boolean>(false);
 
   useEffect(() => {
-    if (product) {
+    if (product && !priceUpdating) {
       const productPrice = product.price;
       setPrice(productPrice ? productPrice.toFixed(2) : '');
     }
-  }, [product]);
+  }, [product, priceUpdating]);
 
   function setProdutcs(mapper: (innerProduct: Product) => Product): void {
     setPurchases((purchases) => {
@@ -78,6 +77,7 @@ export function ProductInfo({
     }
 
     setPrice(value);
+    setPriceUpdating(true);
 
     setProdutcs((innerProduct) => {
       if (equalsCaseInsensitive(innerProduct.name, product?.name || '')) {
@@ -86,6 +86,15 @@ export function ProductInfo({
 
       return innerProduct;
     });
+  }
+
+  function resetPriceUpdating(): void {
+    setPriceUpdating(false);
+  }
+
+  function closeModal(): void {
+    setVisible(false);
+    resetPriceUpdating();
   }
 
   function openDialog(): void {
@@ -174,6 +183,7 @@ export function ProductInfo({
             value={price}
             keyboardType="number-pad"
             onChangeText={handlePriceChanged}
+            onBlur={resetPriceUpdating}
           />
 
           <InputSpinner
