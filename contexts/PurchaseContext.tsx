@@ -1,13 +1,11 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { ImageBackground, View } from 'react-native';
-import {
-  ActivityIndicator,
-  Headline,
-  Title,
-  useTheme,
-} from 'react-native-paper';
+import { ActivityIndicator, Headline, useTheme } from 'react-native-paper';
 import { v4 as uuid } from 'uuid';
+
 import Repository from '../lib/Repository';
+
+import styles from './styles';
 
 interface PurchaseContextProps {
   purchases: Purchase[];
@@ -41,9 +39,7 @@ export function PurchaseProvider({ children }: PurchaseProviderProps) {
         setPurchases(purchases);
       }
 
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
+      setLoading(false);
     }
 
     loadPurchases();
@@ -75,17 +71,12 @@ export function PurchaseProvider({ children }: PurchaseProviderProps) {
         }}
       >
         <Headline
-          style={{
-            fontWeight: 'bold',
-            textShadowColor: colors.accent,
-            textShadowOffset: { width: 2, height: 2 },
-            textShadowRadius: 5,
-            elevation: 10,
-            marginBottom: 40,
-            color: colors.primary,
-          }}
+          style={[
+            { color: colors.primary },
+            styles.title,
+          ]}
         >
-          Carregando compras...
+          Market List
         </Headline>
         <ActivityIndicator size={40} />
 

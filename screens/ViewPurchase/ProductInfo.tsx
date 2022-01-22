@@ -17,7 +17,6 @@ import { usePurchases } from '../../contexts/PurchaseContext';
 
 import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
 import { formatPriceToBrazilStyle } from '../../utils/formatters';
-import { sum } from '../../utils/sum';
 import { sumProducts } from '../../utils/sumProducts';
 
 import styles from './styles';
@@ -46,7 +45,7 @@ export function ProductInfo({
       const { price } = product;
       setPrice(price ? price.toFixed(2) : '');
     }
-  }, []);
+  }, [product]);
 
   function setProdutcs(mapper: (product: Product) => Product) {
     setPurchases((purchases) => {
