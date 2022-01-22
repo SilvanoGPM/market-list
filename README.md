@@ -68,6 +68,8 @@
 
 [Funcão para formatar o preço](https://gist.github.com/kafeltz/1b99cbaa9dc2142e04ca)
 
-## Observação :warning:
+## Observações :warning:
 
+A versão do navegador pode conter MUITOS bugs.
+  
 O Aplicativo não foi testado na plataforma iOS, caso queira testar e contribuir(achar bugs, arrumar estilos, etc) com o projeto, por favor abra um PR.
