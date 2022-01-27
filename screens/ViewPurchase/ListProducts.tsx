@@ -111,18 +111,12 @@ export function ListProducts({
     );
   }
 
-  function closeUpdateQuantityModal(): void {
-    setProductName('');
-    setShowChangeModal(false);
-  }
-
   const selectedProduct = products.find(({ name }) => name === productName);
 
   return (
     <>
       <ProductInfo
         product={selectedProduct}
-        closeModal={closeUpdateQuantityModal}
         visible={showChangeModal}
         setVisible={setShowChangeModal}
       />

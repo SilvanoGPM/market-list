@@ -1,7 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { View } from 'react-native';
 import { StackActions } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import LottieView from 'lottie-react-native';
+
+import splash from '../../assets/splash.json';
 
 type SplashProps = NativeStackScreenProps<RootStackParamList, 'Splash'>;
 
@@ -32,15 +35,19 @@ export function Splash({ navigation }: SplashProps): JSX.Element {
   }, []);
 
   return (
-    <LottieView
-      style={{
-        flex: 1,
-      }}
-      ref={ref}
-      source={require('../../assets/splash.json')}
-      speed={0.8}
-      loop={false}
-      onAnimationFinish={goToHome}
-    />
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <LottieView
+        style={{
+          flex: 1,
+        }}
+        autoSize
+        resizeMode="contain"
+        ref={ref}
+        source={splash}
+        speed={0.8}
+        loop={false}
+        onAnimationFinish={goToHome}
+      />
+    </View>
   );
 }
