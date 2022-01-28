@@ -7,12 +7,6 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 
-  addProductModal: {
-    marginHorizontal: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 48,
-  },
-
   product: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -29,10 +23,6 @@ const styles = StyleSheet.create({
 
   productListContent: {
     padding: 16,
-  },
-
-  input: {
-    marginBottom: 16,
   },
 
   changeQuantity: {

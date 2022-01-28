@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { useToast } from 'react-native-paper-toast';
 
 import {
   Button,
@@ -12,23 +11,20 @@ import {
   useTheme,
 } from 'react-native-paper';
 
-import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
-
 import styles from './styles';
 
 interface AddProductModalProps {
   visible: boolean;
   closeModal: () => void;
-  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  onAddProductEnd: (product: Product) => void;
 }
 
 export function AddProductModal({
   visible,
   closeModal,
-  setProducts,
+  onAddProductEnd,
 }: AddProductModalProps): JSX.Element {
   const { colors } = useTheme();
-  const toaster = useToast();
 
   const [product, setProduct] = useState<Product>({ quantity: 1 } as Product);
   const [nameDirty, setNameDirty] = useState<boolean>(false);
@@ -55,28 +51,10 @@ export function AddProductModal({
     const productIsValid = productName && product.quantity;
 
     if (productIsValid) {
-      setProducts((products) => {
-        const nameAlreadyExists = products.some(({ name }) =>
-          equalsCaseInsensitive(name, productName)
-        );
-
-        if (nameAlreadyExists) {
-          toaster.show({
-            message: 'Esse item já está na lista',
-            position: 'middle',
-            duration: 2000,
-            type: 'info',
-          });
-
-          return products;
-        }
-
-        return [...products, { ...product, name: productName }];
-      });
-
+      onAddProductEnd({ ...product, name: productName });
+      closeModal();
       setNameDirty(false);
       setProduct({ quantity: 1 } as Product);
-      closeModal();
     }
   }
 

@@ -9,9 +9,10 @@ import {
   View,
 } from 'react-native';
 
-import { AddProductModal } from './AddProductModal';
 import { ChangeProductQuantity } from './ChangeProductQuantity';
 import { NewPurchaseModal } from './NewPurchaseModal';
+import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
+import { AddProductModal } from '../../components/AddProductModal';
 
 import styles from './styles';
 
@@ -71,6 +72,25 @@ export function NewPurchase(): JSX.Element {
     setShowChangeModal(false);
   }
 
+  function handleAddProduct(product: Product): void {
+    const nameAlreadyExists = products.some(({ name }) =>
+      equalsCaseInsensitive(name, product.name)
+    );
+
+    if (nameAlreadyExists) {
+      toaster.show({
+        message: 'Esse item já está na lista',
+        position: 'middle',
+        duration: 2000,
+        type: 'info',
+      });
+
+      return;
+    }
+
+    setProducts([...products, product]);
+  }
+
   function handleAddPurchase(): void {
     if (products.length > 0) {
       openNewPurchaseModal();
@@ -99,7 +119,7 @@ export function NewPurchase(): JSX.Element {
       </View>
 
       <AddProductModal
-        setProducts={setProducts}
+        onAddProductEnd={handleAddProduct}
         visible={addProductModalVisible}
         closeModal={closeAddProductModal}
       />

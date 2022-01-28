@@ -11,10 +11,12 @@ import { v4 as uuid } from 'uuid';
 
 import Repository from '../lib/Repository';
 
+type PurchaseToAdd = Omit<Purchase, 'id'>;
+
 interface PurchaseContextProps {
   purchases: Purchase[];
   setPurchases: React.Dispatch<React.SetStateAction<Purchase[]>>;
-  addPurchase: (purchase: Purchase) => void;
+  addPurchase: (purchase: PurchaseToAdd) => void;
   purchasesLoading: boolean;
 }
 
@@ -59,7 +61,7 @@ export function PurchaseProvider({
   }, [purchases, loading]);
 
   const addPurchase = useCallback(
-    (purchase: Purchase): void => {
+    (purchase: PurchaseToAdd): void => {
       setPurchases([{ ...purchase, id: uuid() }, ...purchases]);
     },
     [setPurchases, purchases]

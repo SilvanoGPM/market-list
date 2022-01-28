@@ -30,35 +30,31 @@ export function ListProducts({
   products = [],
 }: ListProductsProps): JSX.Element {
   const { colors } = useTheme();
-  const { setPurchases } = usePurchases();
+  const { purchases, setPurchases } = usePurchases();
 
   const [productName, setProductName] = useState<string>();
   const [showChangeModal, setShowChangeModal] = useState<boolean>(false);
 
-  function toggleCatchProduct(name: string) {
+  function updateProduct(name: string): Product[] {
+    return products.map((product) => {
+      if (equalsCaseInsensitive(product.name, name)) {
+        return { ...product, caught: !product.caught };
+      }
+
+      return product;
+    });
+  }
+
+  function toggleCatchProduct(name: string): () => void {
     return () => {
-      setPurchases((purchases) => {
-        return purchases.map((purchase) => {
-          const hasProduct = purchase.products.some((product) =>
-            equalsCaseInsensitive(product.name, name)
-          );
-
-          if (hasProduct) {
-            return {
-              ...purchase,
-              products: products.map((product) => {
-                if (equalsCaseInsensitive(product.name, name)) {
-                  return { ...product, caught: !product.caught };
-                }
-
-                return product;
-              }),
-            };
-          }
-
-          return purchase;
-        });
+      const newPurchases = purchases.map((purchase) => {
+        return {
+          ...purchase,
+          products: updateProduct(name),
+        };
       });
+
+      setPurchases(newPurchases);
     };
   }
 

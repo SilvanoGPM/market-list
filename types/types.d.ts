@@ -1,12 +1,12 @@
 interface Product {
   name: string;
   quantity: number;
-  price?: number;
+  price: number;
   caught: boolean;
 }
 
 interface Purchase {
-  id?: string;
+  id: string;
   title: string;
   total: number;
   products: Product[];

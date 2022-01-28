@@ -18,6 +18,8 @@ import { sumProducts } from '../../utils/sumProducts';
 import { ListProducts } from './ListProducts';
 
 import styles from './styles';
+import { AddProductModal } from '../../components/AddProductModal';
+import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
 
 type ViewPurchaseProps = NativeStackScreenProps<
   RootStackParamList,
@@ -29,10 +31,14 @@ export function ViewPurchase({
   route,
 }: ViewPurchaseProps): JSX.Element {
   const { colors } = useTheme();
+
   const { purchases, setPurchases } = usePurchases();
   const toaster = useToast();
 
+  const [showFAB, setShowFAB] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [addProductModalVisible, setAddProductModalVisible] =
+    useState<boolean>(false);
 
   const purchase = purchases.find(({ id }) => id === route.params.id);
 
@@ -68,6 +74,44 @@ export function ViewPurchase({
     setShowDeleteDialog(false);
   }
 
+  function closeAddProductModal(): void {
+    setAddProductModalVisible(false);
+  }
+
+  function openAddProductModal(): void {
+    setAddProductModalVisible(true);
+  }
+
+  function handleAddProduct(product: Product): void {
+    const nameAlreadyExists = purchase?.products.some(({ name }) =>
+      equalsCaseInsensitive(name, product.name)
+    );
+
+    if (nameAlreadyExists) {
+      toaster.show({
+        message: 'Esse item já está na lista',
+        position: 'middle',
+        duration: 2000,
+        type: 'info',
+      });
+
+      return;
+    }
+
+    const newPurchases = purchases.map((innerPurchase) => {
+      if (innerPurchase?.id === purchase?.id) {
+        return {
+          ...purchase,
+          products: [...(purchase?.products || []), product],
+        };
+      }
+
+      return innerPurchase;
+    });
+
+    setPurchases(newPurchases);
+  }
+
   const total = sumProducts(purchase?.products);
 
   return (
@@ -83,12 +127,43 @@ export function ViewPurchase({
       </Headline>
 
       <View style={styles.fabContainer}>
-        <FAB
-          onPress={openDeleteDialog}
-          style={[{ backgroundColor: colors.error }, styles.fab]}
-          icon="trash-can-outline"
-        />
+        <Portal>
+          <FAB.Group
+            open={showFAB}
+            visible
+            onStateChange={({ open }) => setShowFAB(open)}
+            fabStyle={{ backgroundColor: colors.primary }}
+            icon="arrow-up-drop-circle"
+            actions={[
+              {
+                icon: 'plus',
+                label: 'Adicionar produto',
+                style: { backgroundColor: colors.success },
+                labelStyle: { backgroundColor: colors.success },
+                labelTextColor: colors.background,
+                color: colors.background,
+                onPress: openAddProductModal,
+                small: false,
+              },
+              {
+                icon: 'delete',
+                style: { backgroundColor: colors.error },
+                labelStyle: { backgroundColor: colors.error },
+                labelTextColor: colors.background,
+                label: 'Deletar lista',
+                onPress: openDeleteDialog,
+                small: false,
+              },
+            ]}
+          />
+        </Portal>
       </View>
+
+      <AddProductModal
+        onAddProductEnd={handleAddProduct}
+        visible={addProductModalVisible}
+        closeModal={closeAddProductModal}
+      />
 
       <Portal>
         <Dialog visible={showDeleteDialog} onDismiss={closeDeleteDialog}>
