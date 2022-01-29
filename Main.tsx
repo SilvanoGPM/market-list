@@ -1,8 +1,8 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { CustomRouteHeader } from './components/CustomRouteHeader';
 
+import { CustomRouteHeader } from './components/CustomRouteHeader';
 import { StatusBarGradient } from './components/StatusBarGradient';
 import { Home } from './screens/Home';
 import { NewPurchase } from './screens/NewPurchase';

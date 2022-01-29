@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { StackActions } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import LottieView from 'lottie-react-native';
+import { Button } from 'react-native-paper';
 
 import splash from '../../assets/splash.json';
 
@@ -10,7 +11,6 @@ type SplashProps = NativeStackScreenProps<RootStackParamList, 'Splash'>;
 
 export function Splash({ navigation }: SplashProps): JSX.Element {
   const [timerID, setTimerID] = useState<NodeJS.Timeout>();
-  const ref = useRef<LottieView>(null);
 
   const goToHome = useCallback(() => {
     if (timerID) {
@@ -28,12 +28,6 @@ export function Splash({ navigation }: SplashProps): JSX.Element {
     setTimerID(newTimerID);
   }, [navigation]);
 
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.play();
-    }
-  }, []);
-
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <LottieView
@@ -41,13 +35,20 @@ export function Splash({ navigation }: SplashProps): JSX.Element {
           flex: 1,
         }}
         autoSize
+        autoPlay
         resizeMode="contain"
-        ref={ref}
         source={splash}
         speed={0.8}
-        loop={false}
-        onAnimationFinish={goToHome}
+        loop
       />
+
+      <Button
+        onPress={goToHome}
+        style={{ marginBottom: '30%', width: '80%' }}
+        mode="contained"
+      >
+        Pular
+      </Button>
     </View>
   );
 }

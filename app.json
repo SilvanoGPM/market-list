@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.github.skygod",
-      "buildNumber": "1.0.1"
+      "buildNumber": "1.1.1"
     },
     "android": {
       "package": "com.github.skygod",
