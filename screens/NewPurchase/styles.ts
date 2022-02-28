@@ -36,16 +36,21 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 
-  buttonsContainer: {
-    width: '100%',
-    position: 'absolute',
-    bottom: 32,
-    left: 8,
-    right: 8,
-  },
-
   newPurchase: {
     padding: 16,
+  },
+
+  fabContainer: {
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
+    right: 10,
+    alignItems: 'flex-end',
+  },
+
+  fab: {
+    padding: 4,
+    borderRadius: 50,
   },
 });
 

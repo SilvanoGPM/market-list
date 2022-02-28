@@ -133,7 +133,7 @@ export function ViewPurchase({
             visible
             onStateChange={({ open }) => setShowFAB(open)}
             fabStyle={{ backgroundColor: colors.primary }}
-            icon="arrow-up-drop-circle"
+            icon={showFAB ? 'arrow-down-drop-circle' : 'arrow-up-drop-circle'}
             actions={[
               {
                 icon: 'plus',

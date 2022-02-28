@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
-import { Badge, Button, Divider, Headline, Title } from 'react-native-paper';
 import { useToast } from 'react-native-paper-toast';
+
+import {
+  Badge,
+  Button,
+  Dialog,
+  Divider,
+  FAB,
+  Headline,
+  Portal,
+  Title,
+  useTheme,
+} from 'react-native-paper';
 
 import {
   FlatList,
@@ -17,6 +28,8 @@ import { AddProductModal } from '../../components/AddProductModal';
 import styles from './styles';
 
 export function NewPurchase(): JSX.Element {
+  const { colors } = useTheme();
+
   const toaster = useToast();
 
   const [addProductModalVisible, setAddProductModalVisible] =
@@ -24,6 +37,8 @@ export function NewPurchase(): JSX.Element {
 
   const [newPurchaseVisible, setNewPurchaseVisible] = useState<boolean>(false);
   const [showChangeModal, setShowChangeModal] = useState<boolean>(false);
+  const [showFAB, setShowFAB] = useState(false);
+  const [showClearDialog, setShowClearDialog] = useState(false);
 
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -103,6 +118,19 @@ export function NewPurchase(): JSX.Element {
     }
   }
 
+  function openClearDialog(): void {
+    setShowClearDialog(true);
+  }
+
+  function closeClearDialog(): void {
+    setShowClearDialog(false);
+  }
+
+  function clearProductList(): void {
+    setProducts([]);
+    closeClearDialog();
+  }
+
   const selectedProduct = products.find(({ name }) => name === productName);
 
   return (
@@ -138,25 +166,58 @@ export function NewPurchase(): JSX.Element {
         products={products}
       />
 
-      <View style={styles.buttonsContainer}>
-        <Button
-          mode="outlined"
-          icon="plus"
-          style={{ flex: 1, marginBottom: 8 }}
-          onPress={openAddProductModal}
-        >
-          Adicionar Produto
-        </Button>
-
-        <Button
-          mode="contained"
-          icon="check"
-          style={{ flex: 1 }}
-          onPress={handleAddPurchase}
-        >
-          Criar lista
-        </Button>
+      <View style={styles.fabContainer}>
+        <Portal>
+          <FAB.Group
+            open={showFAB}
+            visible
+            onStateChange={({ open }) => setShowFAB(open)}
+            fabStyle={{ backgroundColor: colors.primary }}
+            icon={showFAB ? 'arrow-down-drop-circle' : 'arrow-up-drop-circle'}
+            actions={[
+              {
+                icon: 'check',
+                label: 'Criar lista',
+                style: { backgroundColor: colors.success },
+                labelStyle: { backgroundColor: colors.success },
+                labelTextColor: colors.background,
+                color: colors.background,
+                onPress: handleAddPurchase,
+                small: false,
+              },
+              {
+                icon: 'plus',
+                label: 'Adicionar produto',
+                style: { backgroundColor: colors.primary },
+                labelStyle: { backgroundColor: colors.primary },
+                labelTextColor: colors.background,
+                color: colors.background,
+                onPress: openAddProductModal,
+                small: false,
+              },
+              {
+                icon: 'delete',
+                style: { backgroundColor: colors.error },
+                labelStyle: { backgroundColor: colors.error },
+                labelTextColor: colors.background,
+                label: 'Limpar lista',
+                onPress: openClearDialog,
+                small: false,
+              },
+            ]}
+          />
+        </Portal>
       </View>
+
+      <Portal>
+        <Dialog visible={showClearDialog} onDismiss={closeClearDialog}>
+          <Dialog.Title>Deseja limpar essa lista?</Dialog.Title>
+          <Dialog.Actions>
+            <Button onPress={closeClearDialog}>Não</Button>
+            <Button onPress={clearProductList}>Sim</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </View>
   );
 }
