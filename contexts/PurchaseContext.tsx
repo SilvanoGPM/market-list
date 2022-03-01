@@ -1,15 +1,7 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { createContext, useCallback, useContext, useMemo } from 'react';
 
 import { v4 as uuid } from 'uuid';
-
-import Repository from '../lib/Repository';
+import { useStorage } from '../hooks/useStorage';
 
 type PurchaseToAdd = Omit<Purchase, 'id'>;
 
@@ -33,32 +25,10 @@ const PURCHASES_KEY = '@SkyG0D/Purchases';
 export function PurchaseProvider({
   children,
 }: PurchaseProviderProps): JSX.Element {
-  const [purchases, setPurchases] = useState<Purchase[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    async function loadPurchases(): Promise<void> {
-      const purchasesFound = await Repository.get<Purchase[]>(PURCHASES_KEY);
-
-      if (purchasesFound) {
-        setPurchases(purchasesFound);
-      }
-
-      setLoading(false);
-    }
-
-    loadPurchases();
-  }, []);
-
-  useEffect(() => {
-    async function savePurchases(): Promise<void> {
-      await Repository.save(PURCHASES_KEY, purchases);
-    }
-
-    if (!loading) {
-      savePurchases();
-    }
-  }, [purchases, loading]);
+  const [purchases, setPurchases, loading] = useStorage<Purchase[]>(
+    PURCHASES_KEY,
+    []
+  );
 
   const addPurchase = useCallback(
     (purchase: PurchaseToAdd): void => {

@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Repository {
-  static async save(
+  static async save<T>(
     key: string,
-    value: Record<string, unknown> | object[]
+    value: Record<string, unknown> | object[] | T
   ): Promise<void> {
     const valueString = JSON.stringify(value);
 
