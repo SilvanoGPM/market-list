@@ -21,6 +21,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
+  tip: {
+    textAlign: 'center',
+  },
+
   productListContent: {
     padding: 16,
   },

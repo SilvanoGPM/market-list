@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useToast } from 'react-native-paper-toast';
 
 import {
+  ActivityIndicator,
   Badge,
   Button,
   Dialog,
   Divider,
   FAB,
   Headline,
+  Paragraph,
   Portal,
   Title,
   useTheme,
@@ -26,6 +28,9 @@ import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
 import { AddProductModal } from '../../components/AddProductModal';
 
 import styles from './styles';
+import Repository from '../../lib/Repository';
+
+const PRODUCTS_KEY = '@SkyG0D/Products';
 
 export function NewPurchase(): JSX.Element {
   const { colors } = useTheme();
@@ -39,10 +44,35 @@ export function NewPurchase(): JSX.Element {
   const [showChangeModal, setShowChangeModal] = useState<boolean>(false);
   const [showFAB, setShowFAB] = useState(false);
   const [showClearDialog, setShowClearDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [products, setProducts] = useState<Product[]>([]);
 
   const [productName, setProductName] = useState<string>();
+
+  useEffect(() => {
+    async function loadProducts(): Promise<void> {
+      const productsFound = await Repository.get<Product[]>(PRODUCTS_KEY);
+
+      if (productsFound) {
+        setProducts(productsFound);
+      }
+
+      setLoading(false);
+    }
+
+    loadProducts();
+  }, []);
+
+  useEffect(() => {
+    async function saveProducts(): Promise<void> {
+      await Repository.save(PRODUCTS_KEY, products);
+    }
+
+    if (!loading) {
+      saveProducts();
+    }
+  }, [products, loading]);
 
   function selectProduct(name: string) {
     return () => {
@@ -136,6 +166,14 @@ export function NewPurchase(): JSX.Element {
   return (
     <View style={styles.container}>
       <Title style={styles.productsTitle}>Produtos</Title>
+
+      {products.length === 0 && !loading && (
+        <Paragraph style={styles.tip}>
+          Clique no botão abaixo e adicione produtos!
+        </Paragraph>
+      )}
+
+      {loading && <ActivityIndicator />}
 
       <View style={{ height: 400 }}>
         <FlatList
