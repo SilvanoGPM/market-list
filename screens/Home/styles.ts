@@ -25,10 +25,10 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
 
-  purchaseList: {
-    borderRadius: 4,
-    borderWidth: 1,
-    padding: 8,
+  cog: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
   },
 
   purchaseItem: {

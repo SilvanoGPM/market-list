@@ -80,7 +80,6 @@ export function PurchasesList({ purchases }: PurchasesListProps): JSX.Element {
       {purchases.length ? (
         <FlatList
           horizontal
-          style={[{ borderColor: colors.primary }, styles.purchaseList]}
           contentContainerStyle={{ overflow: 'scroll' }}
           data={purchases}
           keyExtractor={({ id }) => id || uuid()}

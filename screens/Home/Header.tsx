@@ -1,7 +1,7 @@
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { View, Animated } from 'react-native';
-import { Title, useTheme } from 'react-native-paper';
+import { IconButton, Title, useTheme } from 'react-native-paper';
 import Svg, { Polygon } from 'react-native-svg';
 
 import { useBackInAnimation } from '../../hooks/useBackInAnimation';
@@ -40,6 +40,13 @@ export function Header(): JSX.Element {
         <Title style={[{ color: colors.background }, styles.headerTitle]}>
           Market{'\n'}List
         </Title>
+
+        <IconButton
+          icon="cog-outline"
+          size={40}
+          color={colors.background}
+          style={styles.cog}
+        />
       </Animated.View>
 
       <AngledShape color={colors.background} />
