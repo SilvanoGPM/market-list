@@ -3,6 +3,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { View, Animated } from 'react-native';
 import { IconButton, Title, useTheme } from 'react-native-paper';
 import Svg, { Polygon } from 'react-native-svg';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { useBackInAnimation } from '../../hooks/useBackInAnimation';
 
@@ -24,10 +26,16 @@ function AngledShape({ color }: AngledShapeProps): JSX.Element {
 
 export function Header(): JSX.Element {
   const { colors } = useTheme();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
 
   const animationStyle = useBackInAnimation({
     direction: 'top',
   });
+
+  function goToSettings(): void {
+    navigation.navigate('Settings');
+  }
 
   return (
     <LinearGradient
@@ -42,6 +50,7 @@ export function Header(): JSX.Element {
         </Title>
 
         <IconButton
+          onPress={goToSettings}
           icon="cog-outline"
           size={40}
           color={colors.background}

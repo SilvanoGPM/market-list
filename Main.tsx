@@ -8,6 +8,7 @@ import { Home } from './screens/Home';
 import { NewPurchase } from './screens/NewPurchase';
 import { ViewPurchase } from './screens/ViewPurchase';
 import { Splash } from './screens/Splash';
+import { Settings } from './screens/Settings';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -44,6 +45,15 @@ export function Main(): JSX.Element {
           options={{
             header: CustomRouteHeader,
             headerTitle: 'Visualizar lista',
+          }}
+        />
+
+        <Stack.Screen
+          name="Settings"
+          component={Settings}
+          options={{
+            header: CustomRouteHeader,
+            headerTitle: 'Configurações',
           }}
         />
       </Stack.Navigator>
