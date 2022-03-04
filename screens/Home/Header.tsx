@@ -9,6 +9,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useBackInAnimation } from '../../hooks/useBackInAnimation';
 
 import styles from './styles';
+import { useColor } from '../../contexts/ColorsContext';
 
 interface AngledShapeProps {
   color: string;
@@ -25,7 +26,9 @@ function AngledShape({ color }: AngledShapeProps): JSX.Element {
 }
 
 export function Header(): JSX.Element {
+  const { color } = useColor();
   const { colors } = useTheme();
+
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
 
@@ -39,7 +42,7 @@ export function Header(): JSX.Element {
 
   return (
     <LinearGradient
-      colors={[colors.accent, colors.primary]}
+      colors={color.gradient}
       start={{ x: -1, y: 0 }}
       end={{ x: 1, y: 0 }}
       style={styles.header}
