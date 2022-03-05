@@ -21,8 +21,11 @@ export function NewPurchaseModal({
   closeModal,
 }: NewPurchaseModalProps): JSX.Element {
   const { colors } = useTheme();
+
   const toaster = useToast();
+
   const { addPurchase } = usePurchases();
+
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
 

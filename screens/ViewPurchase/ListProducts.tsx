@@ -16,6 +16,7 @@ import {
 } from 'react-native-paper';
 
 import { usePurchases } from '../../contexts/PurchaseContext';
+import { useBoolean } from '../../hooks/useBoolean';
 import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
 import { formatPriceToBrazilStyle } from '../../utils/formatters';
 import { ProductInfo } from './ProductInfo';
@@ -33,7 +34,9 @@ export function ListProducts({
   const { purchases, setPurchases } = usePurchases();
 
   const [productName, setProductName] = useState<string>();
-  const [showChangeModal, setShowChangeModal] = useState<boolean>(false);
+
+  const [showChangeModal, openChangeModal, , setShowChangeModal] =
+    useBoolean(false);
 
   function updateProduct(name: string): Product[] {
     return products.map((product) => {
@@ -61,7 +64,7 @@ export function ListProducts({
   function selectProduct(name: string) {
     return () => {
       setProductName(name);
-      setShowChangeModal(true);
+      openChangeModal();
     };
   }
 

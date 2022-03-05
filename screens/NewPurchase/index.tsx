@@ -26,9 +26,10 @@ import { ChangeProductQuantity } from './ChangeProductQuantity';
 import { NewPurchaseModal } from './NewPurchaseModal';
 import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
 import { AddProductModal } from '../../components/AddProductModal';
+import { useStorage } from '../../hooks/useStorage';
+import { useBoolean } from '../../hooks/useBoolean';
 
 import styles from './styles';
-import { useStorage } from '../../hooks/useStorage';
 
 const PRODUCTS_KEY = '@SkyG0D/Products';
 
@@ -37,13 +38,23 @@ export function NewPurchase(): JSX.Element {
 
   const toaster = useToast();
 
-  const [addProductModalVisible, setAddProductModalVisible] =
-    useState<boolean>(false);
+  const [addProductModalVisible, openAddProductModal, closeAddProductModal] =
+    useBoolean(false);
 
-  const [newPurchaseVisible, setNewPurchaseVisible] = useState<boolean>(false);
-  const [showChangeModal, setShowChangeModal] = useState<boolean>(false);
-  const [showFAB, setShowFAB] = useState(false);
-  const [showClearDialog, setShowClearDialog] = useState(false);
+  const [newPurchaseVisible, openNewPurchaseModal, closeNewPurchaseModal] =
+    useBoolean(false);
+
+  const [
+    showChangeModal,
+    openChangeModal,
+    closeChangeModal,
+    setShowChangeModal,
+  ] = useBoolean(false);
+
+  const [showFAB, , , setShowFAB] = useBoolean(false);
+
+  const [showClearDialog, openClearDialog, closeClearDialog] =
+    useBoolean(false);
 
   const [products, setProducts, loading] = useStorage<Product[]>(
     PRODUCTS_KEY,
@@ -55,7 +66,7 @@ export function NewPurchase(): JSX.Element {
   function selectProduct(name: string) {
     return () => {
       setProductName(name);
-      setShowChangeModal(true);
+      openChangeModal();
     };
   }
 
@@ -74,25 +85,9 @@ export function NewPurchase(): JSX.Element {
     );
   }
 
-  function openAddProductModal(): void {
-    setAddProductModalVisible(true);
-  }
-
-  function closeAddProductModal(): void {
-    setAddProductModalVisible(false);
-  }
-
-  function closeNewPurchaseModal(): void {
-    setNewPurchaseVisible(false);
-  }
-
-  function openNewPurchaseModal(): void {
-    setNewPurchaseVisible(true);
-  }
-
   function closeUpdateQuantityModal(): void {
     setProductName('');
-    setShowChangeModal(false);
+    closeChangeModal();
   }
 
   function handleAddProduct(product: Product): void {
@@ -124,14 +119,6 @@ export function NewPurchase(): JSX.Element {
         position: 'middle',
       });
     }
-  }
-
-  function openClearDialog(): void {
-    setShowClearDialog(true);
-  }
-
-  function closeClearDialog(): void {
-    setShowClearDialog(false);
   }
 
   function clearProductList(): void {

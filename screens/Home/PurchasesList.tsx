@@ -44,6 +44,7 @@ function CartIcon(): JSX.Element {
 
 export function PurchasesList({ purchases }: PurchasesListProps): JSX.Element {
   const { colors } = useTheme();
+
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
 

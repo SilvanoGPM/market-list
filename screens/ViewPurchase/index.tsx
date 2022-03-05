@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { View } from 'react-native';
 import { useToast } from 'react-native-paper-toast';
@@ -16,10 +16,11 @@ import { usePurchases } from '../../contexts/PurchaseContext';
 import { formatPriceToBrazilStyle } from '../../utils/formatters';
 import { sumProducts } from '../../utils/sumProducts';
 import { ListProducts } from './ListProducts';
-
-import styles from './styles';
 import { AddProductModal } from '../../components/AddProductModal';
 import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
+import { useBoolean } from '../../hooks/useBoolean';
+
+import styles from './styles';
 
 type ViewPurchaseProps = NativeStackScreenProps<
   RootStackParamList,
@@ -32,13 +33,17 @@ export function ViewPurchase({
 }: ViewPurchaseProps): JSX.Element {
   const { colors } = useTheme();
 
-  const { purchases, setPurchases } = usePurchases();
   const toaster = useToast();
 
-  const [showFAB, setShowFAB] = useState(false);
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-  const [addProductModalVisible, setAddProductModalVisible] =
-    useState<boolean>(false);
+  const { purchases, setPurchases } = usePurchases();
+
+  const [showFAB, , , setShowFAB] = useBoolean(false);
+
+  const [showDeleteDialog, openDeleteDialog, closeDeleteDialog] =
+    useBoolean(false);
+
+  const [addProductModalVisible, openAddProductModal, closeAddProductModal] =
+    useBoolean(false);
 
   const purchase = purchases.find(({ id }) => id === route.params.id);
 
@@ -64,22 +69,6 @@ export function ViewPurchase({
     });
 
     navigation.goBack();
-  }
-
-  function openDeleteDialog(): void {
-    setShowDeleteDialog(true);
-  }
-
-  function closeDeleteDialog(): void {
-    setShowDeleteDialog(false);
-  }
-
-  function closeAddProductModal(): void {
-    setAddProductModalVisible(false);
-  }
-
-  function openAddProductModal(): void {
-    setAddProductModalVisible(true);
   }
 
   function handleAddProduct(product: Product): void {

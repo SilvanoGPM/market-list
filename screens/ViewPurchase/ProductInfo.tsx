@@ -14,6 +14,7 @@ import {
 } from 'react-native-paper';
 
 import { usePurchases } from '../../contexts/PurchaseContext';
+import { useBoolean } from '../../hooks/useBoolean';
 import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
 import { formatPriceToBrazilStyle } from '../../utils/formatters';
 import { sumProducts } from '../../utils/sumProducts';
@@ -34,9 +35,12 @@ export function ProductInfo({
   const { colors } = useTheme();
   const { setPurchases } = usePurchases();
 
-  const [showDialog, setShowDialog] = useState(false);
   const [price, setPrice] = useState<string>('');
-  const [priceUpdating, setPriceUpdating] = useState<boolean>(false);
+
+  const [showDialog, openDialog, closeDialog] = useBoolean(false);
+
+  const [priceUpdating, startPriceUpdating, resetPriceUpdating] =
+    useBoolean(false);
 
   useEffect(() => {
     if (product && !priceUpdating) {
@@ -77,7 +81,7 @@ export function ProductInfo({
     }
 
     setPrice(value);
-    setPriceUpdating(true);
+    startPriceUpdating();
 
     setProdutcs((innerProduct) => {
       if (equalsCaseInsensitive(innerProduct.name, product?.name || '')) {
@@ -88,22 +92,14 @@ export function ProductInfo({
     });
   }
 
-  function resetPriceUpdating(): void {
-    setPriceUpdating(false);
-  }
-
   function closeModal(): void {
     setVisible(false);
     resetPriceUpdating();
   }
 
-  function openDialog(): void {
-    setShowDialog(true);
+  function openDialogAndCloseModal(): void {
+    openDialog();
     setVisible(false);
-  }
-
-  function closeDialog(): void {
-    setShowDialog(false);
   }
 
   function removeProduct(): void {
@@ -129,7 +125,7 @@ export function ProductInfo({
 
   function updateQuantity(quantity: number): void {
     if (quantity === 0) {
-      openDialog();
+      openDialogAndCloseModal();
     }
 
     setQuantity(quantity);

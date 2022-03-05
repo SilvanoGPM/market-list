@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DropDown from 'react-native-paper-dropdown';
 import { View } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
 
-import styles from './styles';
 import { useColor } from '../../contexts/ColorsContext';
+import { useBoolean } from '../../hooks/useBoolean';
+
+import styles from './styles';
 
 const colors: Record<string, Omit<Color, 'name'>> = {
   'purple-blue': {
@@ -47,7 +49,7 @@ const dropdownList: DrowdownItem[] = [
 export function Settings(): JSX.Element {
   const { color, setColor } = useColor();
 
-  const [showThemes, setShowThemes] = useState<boolean>(false);
+  const [showThemes, openThemes, closeThemes] = useBoolean(false);
 
   function switchTheme(value: keyof typeof colors): void {
     const newColor = colors[value];
@@ -61,8 +63,8 @@ export function Settings(): JSX.Element {
           label="Escolha um tema"
           mode="outlined"
           visible={showThemes}
-          showDropDown={() => setShowThemes(true)}
-          onDismiss={() => setShowThemes(false)}
+          showDropDown={openThemes}
+          onDismiss={closeThemes}
           value={color.name}
           setValue={switchTheme}
           list={dropdownList}

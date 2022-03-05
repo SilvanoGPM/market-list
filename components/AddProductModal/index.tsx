@@ -11,6 +11,8 @@ import {
   useTheme,
 } from 'react-native-paper';
 
+import { useBoolean } from '../../hooks/useBoolean';
+
 import styles from './styles';
 
 interface AddProductModalProps {
@@ -27,11 +29,11 @@ export function AddProductModal({
   const { colors } = useTheme();
 
   const [product, setProduct] = useState<Product>({ quantity: 1 } as Product);
-  const [nameDirty, setNameDirty] = useState<boolean>(false);
+  const [nameDirty, setNameDirtyTrue, setNameDirtyFalse] = useBoolean(false);
 
   function handleProductName(name: string): void {
     setProduct({ ...product, name });
-    setNameDirty(true);
+    setNameDirtyTrue();
   }
 
   function handleProductQuantity(value: string): void {
@@ -53,7 +55,7 @@ export function AddProductModal({
     if (productIsValid) {
       onAddProductEnd({ ...product, name: productName });
       closeModal();
-      setNameDirty(false);
+      setNameDirtyFalse();
       setProduct({ quantity: 1 } as Product);
     }
   }
