@@ -16,11 +16,23 @@ const colors = {
     primary: '#e67e22',
     gradient: ['#e67e22', '#1abc9c'],
   },
+
+  'red-pink': {
+    primary: '#d63031',
+    gradient: ['#fd79a8', '#d63031'],
+  },
+
+  'green-yellow': {
+    primary: '#6ab04c',
+    gradient: ['#f6e58d', '#6ab04c'],
+  },
 };
 
 const dropdownList = [
   { label: 'Roxo e Azul', value: 'purple-blue' },
   { label: 'Laranja e Azul', value: 'orange-blue' },
+  { label: 'Vermelho e Rosa', value: 'red-pink' },
+  { label: 'Verde e Amarelo', value: 'green-yellow' },
 ];
 
 export function Settings(): JSX.Element {

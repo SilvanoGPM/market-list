@@ -58,6 +58,7 @@ export function Home({ navigation }: HomeProps): JSX.Element {
       <View style={styles.fabContainer}>
         <Animated.View style={fabAnimationStyle}>
           <FAB
+            color={colors.text}
             style={[{ backgroundColor: colors.primary }, styles.fab]}
             icon="plus"
             onPress={goToNewPurchase}
