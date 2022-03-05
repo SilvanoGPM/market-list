@@ -119,6 +119,7 @@ export function ChangeProductQuantity({
             buttonLeftImage={
               <Avatar.Icon
                 size={40}
+                color={colors.icon}
                 icon={product?.quantity === 1 ? 'trash-can-outline' : 'minus'}
               />
             }

@@ -37,7 +37,7 @@ export function PurchasesInfo({ purchases }: PurchasesInfoProps): JSX.Element {
       >
         <Card style={styles.purchasesInfoCard}>
           <View style={styles.purchasesInfoCardIcon}>
-            <Avatar.Icon size={40} icon="cash" />
+            <Avatar.Icon color={colors.icon} size={40} icon="cash" />
           </View>
           <Title style={{ color: colors.primary, textAlign: 'center' }}>
             Gasto
@@ -51,7 +51,7 @@ export function PurchasesInfo({ purchases }: PurchasesInfoProps): JSX.Element {
 
         <Card style={styles.purchasesInfoCard}>
           <View style={styles.purchasesInfoCardIcon}>
-            <Avatar.Icon size={40} icon="food" />
+            <Avatar.Icon color={colors.icon} size={40} icon="food" />
           </View>
           <Title style={{ color: colors.primary, textAlign: 'center' }}>
             Produtos

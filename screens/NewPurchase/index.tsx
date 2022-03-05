@@ -185,8 +185,9 @@ export function NewPurchase(): JSX.Element {
       <View style={styles.fabContainer}>
         <Portal>
           <FAB.Group
+            color={colors.icon}
             open={showFAB}
-            visible
+            visible={!addProductModalVisible}
             onStateChange={({ open }) => setShowFAB(open)}
             fabStyle={{ backgroundColor: colors.primary }}
             icon={showFAB ? 'arrow-down-drop-circle' : 'arrow-up-drop-circle'}

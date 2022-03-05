@@ -2,12 +2,6 @@ import React, { createContext, useContext, useMemo } from 'react';
 import { DefaultTheme } from 'react-native-paper';
 import { useStorage } from '../hooks/useStorage';
 
-interface Color {
-  name: string;
-  gradient: string[];
-  primary: string;
-}
-
 interface ColorContextProps {
   color: Color;
   setColor: (color: Color) => void;
@@ -28,6 +22,7 @@ export function ColorProvider({ children }: ColorProviderProps): JSX.Element {
     name: 'purple-blue',
     primary: DefaultTheme.colors.primary,
     gradient: [DefaultTheme.colors.accent, DefaultTheme.colors.primary],
+    icon: '#ffffff',
   });
 
   const value = useMemo(() => ({ color, setColor }), [color, setColor]);

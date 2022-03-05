@@ -74,9 +74,7 @@ export function ListProducts({
         >
           <View style={{ flex: 0.9 }}>
             <Paragraph style={styles.listItemPrice}>
-              {item.price
-                ? formatPriceToBrazilStyle(item.price || 0)
-                : 'Sem preço'}
+              {item.price ? formatPriceToBrazilStyle(item.price) : 'Sem preço'}
             </Paragraph>
 
             <Headline

@@ -11,3 +11,10 @@ interface Purchase {
   total: number;
   products: Product[];
 }
+
+interface Color {
+  name: string;
+  gradient: string[];
+  primary: string;
+  icon: string;
+}

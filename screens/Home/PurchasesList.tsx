@@ -38,7 +38,8 @@ function ListSeparator(): JSX.Element {
 }
 
 function CartIcon(): JSX.Element {
-  return <Avatar.Icon size={48} icon="cart" />;
+  const { colors } = useTheme();
+  return <Avatar.Icon color={colors.icon} size={48} icon="cart" />;
 }
 
 export function PurchasesList({ purchases }: PurchasesListProps): JSX.Element {
@@ -54,7 +55,7 @@ export function PurchasesList({ purchases }: PurchasesListProps): JSX.Element {
 
   function renderListItem({ item }: ListRenderItemInfo<Purchase>): JSX.Element {
     return (
-      <TouchableOpacity onPress={viewPurchase(item.id || '')}>
+      <TouchableOpacity onPress={viewPurchase(item.id)}>
         <Card.Title
           style={[
             { borderColor: colors.primary, backgroundColor: colors.surface },

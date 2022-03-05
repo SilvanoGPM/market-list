@@ -13,6 +13,8 @@ declare global {
     interface ThemeColors {
       success: string;
       info: string;
+      icon: string;
+      gradient: string[];
     }
   }
 }

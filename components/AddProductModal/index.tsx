@@ -98,7 +98,12 @@ export function AddProductModal({
           </View>
         </View>
 
-        <Button mode="contained" icon="plus" onPress={addProduct}>
+        <Button
+          labelStyle={{ color: colors.icon }}
+          mode="contained"
+          icon="plus"
+          onPress={addProduct}
+        >
           Adicionar
         </Button>
       </Modal>

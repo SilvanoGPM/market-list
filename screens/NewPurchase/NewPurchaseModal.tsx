@@ -80,6 +80,7 @@ export function NewPurchaseModal({
 
         <Button
           style={{ marginBottom: 16 }}
+          labelStyle={{ color: colors.icon }}
           mode="contained"
           icon="check"
           onPress={newPurchase}

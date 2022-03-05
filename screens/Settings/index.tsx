@@ -6,29 +6,38 @@ import { DefaultTheme } from 'react-native-paper';
 import styles from './styles';
 import { useColor } from '../../contexts/ColorsContext';
 
-const colors = {
+const colors: Record<string, Omit<Color, 'name'>> = {
   'purple-blue': {
     primary: DefaultTheme.colors.primary,
     gradient: [DefaultTheme.colors.accent, DefaultTheme.colors.primary],
+    icon: '#ffffff',
   },
 
   'orange-blue': {
     primary: '#e67e22',
-    gradient: ['#e67e22', '#1abc9c'],
+    gradient: ['#1abc9c', '#e67e22'],
+    icon: '#ffffff',
   },
 
   'red-pink': {
     primary: '#d63031',
-    gradient: ['#fd79a8', '#d63031'],
+    gradient: ['#d63031', '#fd79a8'],
+    icon: '#ffffff',
   },
 
   'green-yellow': {
     primary: '#6ab04c',
-    gradient: ['#f6e58d', '#6ab04c'],
+    gradient: ['#6ab04c', '#f6e58d'],
+    icon: '#ffffff',
   },
 };
 
-const dropdownList = [
+interface DrowdownItem {
+  label: string;
+  value: keyof typeof colors;
+}
+
+const dropdownList: DrowdownItem[] = [
   { label: 'Roxo e Azul', value: 'purple-blue' },
   { label: 'Laranja e Azul', value: 'orange-blue' },
   { label: 'Vermelho e Rosa', value: 'red-pink' },
@@ -38,7 +47,7 @@ const dropdownList = [
 export function Settings(): JSX.Element {
   const { color, setColor } = useColor();
 
-  const [showThemes, setShowThemes] = useState(false);
+  const [showThemes, setShowThemes] = useState<boolean>(false);
 
   function switchTheme(value: keyof typeof colors): void {
     const newColor = colors[value];

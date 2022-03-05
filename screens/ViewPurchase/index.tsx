@@ -129,6 +129,7 @@ export function ViewPurchase({
       <View style={styles.fabContainer}>
         <Portal>
           <FAB.Group
+            color={colors.icon}
             open={showFAB}
             visible
             onStateChange={({ open }) => setShowFAB(open)}

@@ -21,11 +21,13 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export function Main(): JSX.Element {
   const { color } = useColor();
 
-  const theme = {
+  const theme: ReactNativePaper.Theme = {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
       primary: color.primary,
+      gradient: color.gradient,
+      icon: color.icon,
       success: '#4cd137',
       info: '#487eb0',
       error: '#e84118',
