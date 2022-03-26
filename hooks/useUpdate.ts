@@ -11,6 +11,8 @@ export function useUpdate(): void {
       }
     }
 
-    updateApp();
+    if (!__DEV__) {
+      updateApp();
+    }
   }, []);
 }
