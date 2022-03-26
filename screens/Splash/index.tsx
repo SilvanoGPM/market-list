@@ -3,13 +3,15 @@ import { View } from 'react-native';
 import { StackActions } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import LottieView from 'lottie-react-native';
-import { Button } from 'react-native-paper';
+import { Button, useTheme } from 'react-native-paper';
 
 import splash from '../../assets/splash.json';
 
 type SplashProps = NativeStackScreenProps<RootStackParamList, 'Splash'>;
 
 export function Splash({ navigation }: SplashProps): JSX.Element {
+  const { colors } = useTheme();
+
   const [timerID, setTimerID] = useState<NodeJS.Timeout>();
 
   const goToHome = useCallback(() => {
@@ -45,6 +47,7 @@ export function Splash({ navigation }: SplashProps): JSX.Element {
       <Button
         onPress={goToHome}
         style={{ marginBottom: '30%', width: '80%' }}
+        labelStyle={{ color: colors.icon }}
         mode="contained"
       >
         Pular
