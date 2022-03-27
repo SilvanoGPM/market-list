@@ -23,6 +23,8 @@
 - Visualizar total de gasto e total de produtos comprados.
 - Preço estimado da lista de compras(o usuário precisa informar o valor dos produtos).
 - Remoção de lista de compras.
+- Escolha de cor principal.
+- Atualizações programáticas.
 
 ## Imagens :sparkles:
 
