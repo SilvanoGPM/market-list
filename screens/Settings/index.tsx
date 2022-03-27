@@ -1,14 +1,15 @@
 import React from 'react';
 import DropDown from 'react-native-paper-dropdown';
 import { View } from 'react-native';
-import { DefaultTheme } from 'react-native-paper';
+import { DefaultTheme, Text, useTheme } from 'react-native-paper';
+import Constants from 'expo-constants';
 
 import { useColor } from '../../contexts/ColorsContext';
 import { useBoolean } from '../../hooks/useBoolean';
 
 import styles from './styles';
 
-const colors: Record<string, Omit<Color, 'name'>> = {
+const defaultColors: Record<string, Omit<Color, 'name'>> = {
   'purple-blue': {
     primary: DefaultTheme.colors.primary,
     gradient: [DefaultTheme.colors.accent, DefaultTheme.colors.primary],
@@ -36,7 +37,7 @@ const colors: Record<string, Omit<Color, 'name'>> = {
 
 interface DrowdownItem {
   label: string;
-  value: keyof typeof colors;
+  value: keyof typeof defaultColors;
 }
 
 const dropdownList: DrowdownItem[] = [
@@ -46,18 +47,22 @@ const dropdownList: DrowdownItem[] = [
   { label: 'Verde e Amarelo', value: 'green-yellow' },
 ];
 
+const version = Constants.manifest?.version;
+
 export function Settings(): JSX.Element {
+  const { colors } = useTheme();
+
   const { color, setColor } = useColor();
 
   const [showThemes, openThemes, closeThemes] = useBoolean(false);
 
-  function switchTheme(value: keyof typeof colors): void {
-    const newColor = colors[value];
+  function switchTheme(value: keyof typeof defaultColors): void {
+    const newColor = defaultColors[value];
     setColor({ name: value, ...newColor });
   }
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <View style={styles.themes}>
         <DropDown
           label="Escolha um tema"
@@ -69,6 +74,15 @@ export function Settings(): JSX.Element {
           setValue={switchTheme}
           list={dropdownList}
         />
+      </View>
+
+      <View style={styles.version}>
+        <Text style={[{ color: colors.primary }, styles.versionText]}>
+          Versão atual:{' '}
+          <Text style={{ fontWeight: 'bold', color: colors.primary }}>
+            {version}
+          </Text>
+        </Text>
       </View>
     </View>
   );
