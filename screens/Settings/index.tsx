@@ -8,6 +8,7 @@ import { useColor } from '../../contexts/ColorsContext';
 import { useBoolean } from '../../hooks/useBoolean';
 
 import styles from './styles';
+import { VerifyUpdates } from './VerifyUpdates';
 
 const defaultColors: Record<string, Omit<Color, 'name'>> = {
   'purple-blue': {
@@ -75,6 +76,8 @@ export function Settings(): JSX.Element {
           list={dropdownList}
         />
       </View>
+
+      <VerifyUpdates />
 
       <View style={styles.version}>
         <Text style={[{ color: colors.primary }, styles.versionText]}>

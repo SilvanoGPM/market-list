@@ -4,10 +4,15 @@ import * as Updates from 'expo-updates';
 export function useUpdate(): void {
   useEffect(() => {
     async function updateApp(): Promise<void> {
-      const { isAvailable } = await Updates.checkForUpdateAsync();
-      if (isAvailable) {
-        await Updates.fetchUpdateAsync();
-        await Updates.reloadAsync();
+      try {
+        const { isAvailable } = await Updates.checkForUpdateAsync();
+
+        if (isAvailable) {
+          await Updates.fetchUpdateAsync();
+          await Updates.reloadAsync();
+        }
+      } catch {
+        console.error('Erro ao tentar atualizar aplicativo.');
       }
     }
 

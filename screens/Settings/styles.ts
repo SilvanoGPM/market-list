@@ -5,6 +5,16 @@ const styles = StyleSheet.create({
     padding: 16,
   },
 
+  updates: {
+    padding: 16,
+  },
+
+  hasUpdatesModal: {
+    width: '100%',
+    height: 300,
+    padding: 16,
+  },
+
   version: {
     width: '100%',
     position: 'absolute',
