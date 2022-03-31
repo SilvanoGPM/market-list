@@ -46,15 +46,21 @@
 <p align="center">
     <img alt="Nova Compra Vazia" src="./preview/new-purchase1.jpeg" width=300 height=575 />
     <img alt="Nova Compra Preenchida" src="./preview/new-purchase2.jpeg" width=300 height=575 />
-     <img alt="Adicionar Produto" src="./preview/add-product.jpeg" width=300 height=575 />
+    <img alt="Adicionar Produto" src="./preview/add-product.jpeg" width=300 height=575 />
 </p>
 
 <h3 align="center">Visualizar compra</h3>
 
 <p align="center">
   <img alt="Visualizar Compra" src="./preview/view-purchase1.jpeg" width=300 height=575 />
-    <img alt="Visualizar Compra" src="./preview/view-purchase2.jpeg" width=300 height=575 />
+  <img alt="Visualizar Compra" src="./preview/view-purchase2.jpeg" width=300 height=575 />
 <p>
+
+<h3 align="center">Configurações</h3>
+
+<p align="center">
+  <img alt="Configurações" src="./preview/settings.jpeg" width=300 height=575 />
+</p>
 
 ## Instalar/Executar :hammer:
 
