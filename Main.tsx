@@ -2,7 +2,6 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import { ToastProvider } from 'react-native-paper-toast';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { PurchaseProvider } from './contexts/PurchaseContext';
@@ -36,56 +35,54 @@ export function Main(): JSX.Element {
 
   return (
     <PaperProvider theme={theme}>
-      <ToastProvider>
-        <PurchaseProvider>
-          <NavigationContainer>
-            <SafeAreaView style={{ flex: 1 }}>
-              <StatusBarGradient />
+      <PurchaseProvider>
+        <NavigationContainer>
+          <SafeAreaView style={{ flex: 1 }}>
+            <StatusBarGradient />
 
-              <Stack.Navigator initialRouteName="Splash">
-                <Stack.Screen
-                  name="Splash"
-                  component={Splash}
-                  options={{ headerShown: false, gestureEnabled: false }}
-                />
+            <Stack.Navigator initialRouteName="Splash">
+              <Stack.Screen
+                name="Splash"
+                component={Splash}
+                options={{ headerShown: false, gestureEnabled: false }}
+              />
 
-                <Stack.Screen
-                  name="Home"
-                  component={Home}
-                  options={{ headerShown: false }}
-                />
+              <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{ headerShown: false }}
+              />
 
-                <Stack.Screen
-                  name="NewPurchase"
-                  component={NewPurchase}
-                  options={{
-                    header: CustomRouteHeader,
-                    headerTitle: 'Nova lista de compras',
-                  }}
-                />
+              <Stack.Screen
+                name="NewPurchase"
+                component={NewPurchase}
+                options={{
+                  header: CustomRouteHeader,
+                  headerTitle: 'Nova lista de compras',
+                }}
+              />
 
-                <Stack.Screen
-                  name="ViewPurchase"
-                  component={ViewPurchase}
-                  options={{
-                    header: CustomRouteHeader,
-                    headerTitle: 'Visualizar lista',
-                  }}
-                />
+              <Stack.Screen
+                name="ViewPurchase"
+                component={ViewPurchase}
+                options={{
+                  header: CustomRouteHeader,
+                  headerTitle: 'Visualizar lista',
+                }}
+              />
 
-                <Stack.Screen
-                  name="Settings"
-                  component={Settings}
-                  options={{
-                    header: CustomRouteHeader,
-                    headerTitle: 'Configurações',
-                  }}
-                />
-              </Stack.Navigator>
-            </SafeAreaView>
-          </NavigationContainer>
-        </PurchaseProvider>
-      </ToastProvider>
+              <Stack.Screen
+                name="Settings"
+                component={Settings}
+                options={{
+                  header: CustomRouteHeader,
+                  headerTitle: 'Configurações',
+                }}
+              />
+            </Stack.Navigator>
+          </SafeAreaView>
+        </NavigationContainer>
+      </PurchaseProvider>
     </PaperProvider>
   );
 }

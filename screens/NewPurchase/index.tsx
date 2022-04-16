@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useToast } from 'react-native-paper-toast';
+import Toast from 'react-native-toast-message';
 
 import {
   ActivityIndicator,
@@ -35,8 +35,6 @@ const PRODUCTS_KEY = '@SkyG0D/Products';
 
 export function NewPurchase(): JSX.Element {
   const { colors } = useTheme();
-
-  const toaster = useToast();
 
   const [addProductModalVisible, openAddProductModal, closeAddProductModal] =
     useBoolean(false);
@@ -96,10 +94,10 @@ export function NewPurchase(): JSX.Element {
     );
 
     if (nameAlreadyExists) {
-      toaster.show({
-        message: 'Esse item já está na lista',
-        position: 'middle',
-        duration: 2000,
+      Toast.show({
+        text1: 'Esse item já está na lista',
+        position: 'bottom',
+        visibilityTime: 2000,
         type: 'info',
       });
 
@@ -113,10 +111,10 @@ export function NewPurchase(): JSX.Element {
     if (products.length > 0) {
       openNewPurchaseModal();
     } else {
-      toaster.show({
-        message: 'Adicione pelo menos um protudo!',
+      Toast.show({
+        text1: 'Adicione pelo menos um produto!',
         type: 'info',
-        position: 'middle',
+        position: 'bottom',
       });
     }
   }

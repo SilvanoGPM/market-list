@@ -5616,11 +5616,6 @@ react-native-paper-dropdown@^1.0.7:
   resolved "https://registry.yarnpkg.com/react-native-paper-dropdown/-/react-native-paper-dropdown-1.0.7.tgz#64fe004b05b73ca5c781873d800ac5062b35bdc9"
   integrity sha512-St0rZFw5sC7mbXtFCOGsyEa0fIBaG6Cfz78RsjFNzTj+rKd1i9qlDY2O7eOa2zAUEnFlL+C7FXdXUY9RUNELNw==
 
-react-native-paper-toast@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-paper-toast/-/react-native-paper-toast-1.2.0.tgz#5093a258dee12e1fee9c62ac2a62d2b611992279"
-  integrity sha512-BWrPqJ27DC4NXNFKKG8tSqWHCSpZp+nBzsipFfnOa1k6UJ3cAy4N/XKO4gsQGl4KoHi5fcWR1BFwyw451fVjkw==
-
 react-native-paper@^4.11.2:
   version "4.11.2"
   resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-4.11.2.tgz#4ae73282da9be3bf20760c609d3273643d1dd4a9"
@@ -5657,6 +5652,11 @@ react-native-svg@^12.1.1:
   dependencies:
     css-select "^2.1.0"
     css-tree "^1.0.0-alpha.39"
+
+react-native-toast-message@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/react-native-toast-message/-/react-native-toast-message-2.1.5.tgz#550acb9c6c0f1ee49c6b57b65a56d34e297eb723"
+  integrity sha512-mk3rELtBEhrhWBCN6CTaw0gypgL9ZNauX3xx1LUs4uee9vc0pVsghrKxO57vroUCcNL2hDeZSLJWdQNMCkGeaQ==
 
 react-native-vector-icons@^9.1.0:
   version "9.1.0"

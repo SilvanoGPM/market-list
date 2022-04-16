@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { View, Modal, TouchableWithoutFeedback } from 'react-native';
 import { Button, Headline, TextInput, useTheme } from 'react-native-paper';
-import { useToast } from 'react-native-paper-toast';
+import Toast from 'react-native-toast-message';
 
 import { usePurchases } from '../../contexts/PurchaseContext';
 
@@ -22,8 +22,6 @@ export function NewPurchaseModal({
 }: NewPurchaseModalProps): JSX.Element {
   const { colors } = useTheme();
 
-  const toaster = useToast();
-
   const { addPurchase } = usePurchases();
 
   const navigation =
@@ -38,18 +36,18 @@ export function NewPurchaseModal({
       addPurchase({ products, total: 0, title });
       closeModal();
 
-      toaster.show({
-        message: 'Lista adicionada',
-        position: 'middle',
+      Toast.show({
+        text1: 'Lista adicionada',
+        position: 'bottom',
         type: 'success',
       });
 
       navigation.navigate('Home');
     } else {
-      toaster.show({
-        message: 'Insira um nome para a lista',
+      Toast.show({
+        text1: 'Insira um nome para a lista',
         type: 'info',
-        position: 'middle',
+        position: 'bottom',
       });
     }
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { View } from 'react-native';
-import { useToast } from 'react-native-paper-toast';
+import Toast from 'react-native-toast-message';
 
 import {
   Button,
@@ -33,8 +33,6 @@ export function ViewPurchase({
 }: ViewPurchaseProps): JSX.Element {
   const { colors } = useTheme();
 
-  const toaster = useToast();
-
   const { purchases, setPurchases } = usePurchases();
 
   const [showFAB, , , setShowFAB] = useBoolean(false);
@@ -50,11 +48,11 @@ export function ViewPurchase({
   if (!purchase) {
     navigation.goBack();
 
-    toaster.show({
-      message: 'Essa compra não existe!',
+    Toast.show({
+      text1: 'Essa compra não existe!',
       type: 'warning',
-      position: 'middle',
-      duration: 2000,
+      position: 'bottom',
+      visibilityTime: 2000,
     });
   }
 
@@ -62,9 +60,9 @@ export function ViewPurchase({
     const newPurchases = purchases.filter(({ id }) => purchase?.id !== id);
     setPurchases(newPurchases);
 
-    toaster.show({
-      message: 'A lista foi deletada.',
-      position: 'middle',
+    Toast.show({
+      text1: 'A lista foi deletada.',
+      position: 'bottom',
       type: 'success',
     });
 
@@ -77,10 +75,10 @@ export function ViewPurchase({
     );
 
     if (nameAlreadyExists) {
-      toaster.show({
-        message: 'Esse item já está na lista',
-        position: 'middle',
-        duration: 2000,
+      Toast.show({
+        text1: 'Esse item já está na lista',
+        position: 'bottom',
+        visibilityTime: 2000,
         type: 'info',
       });
 

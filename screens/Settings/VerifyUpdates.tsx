@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Button, Modal, Portal, Title, useTheme } from 'react-native-paper';
-import { useToast } from 'react-native-paper-toast';
+import Toast from 'react-native-toast-message';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as Updates from 'expo-updates';
 
@@ -11,8 +11,6 @@ import styles from './styles';
 
 export function VerifyUpdates(): JSX.Element {
   const { colors } = useTheme();
-
-  const toaster = useToast();
 
   const [showModal, openModal, closeModal] = useBoolean(false);
   const [verify, startVerify, endVerify] = useBoolean(false);
@@ -29,14 +27,14 @@ export function VerifyUpdates(): JSX.Element {
         return;
       }
 
-      toaster.show({
+      Toast.show({
         type: 'info',
-        message: 'Nenhuma atualização encontrada!',
+        text1: 'Nenhuma atualização encontrada!',
       });
     } catch {
-      toaster.show({
-        type: 'warning',
-        message: 'Aconteceu um erro ao tentar verificar atualizações!',
+      Toast.show({
+        text1: 'Aconteceu um erro ao tentar verificar atualizações!',
+        type: 'error',
       });
     } finally {
       endVerify();
@@ -55,14 +53,14 @@ export function VerifyUpdates(): JSX.Element {
         await Updates.reloadAsync();
       }
 
-      toaster.show({
+      Toast.show({
+        text1: 'Aplicativo foi atualizado com sucesso!',
         type: 'success',
-        message: 'Aplicativo foi atualizado com sucesso!',
       });
     } catch {
-      toaster.show({
-        type: 'warning',
-        message: 'Não foi possível atualizar o aplicativo!',
+      Toast.show({
+        text1: 'Não foi possível atualizar o aplicativo!',
+        type: 'error',
       });
     } finally {
       endUptading();

@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 import 'react-native-get-random-values';
 
 import { Main } from './Main';
@@ -28,6 +29,8 @@ export default function App(): JSX.Element {
     <SafeAreaProvider>
       <ColorProvider>
         <Main />
+
+        <Toast />
       </ColorProvider>
     </SafeAreaProvider>
   );
