@@ -3,6 +3,7 @@ import DropDown from 'react-native-paper-dropdown';
 import { View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import Constants from 'expo-constants';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import { useColor } from '../../contexts/ColorsContext';
 import { useBoolean } from '../../hooks/useBoolean';
@@ -15,13 +16,14 @@ import defaultColors from '../../config/colors';
 interface DrowdownItem {
   label: string;
   value: keyof typeof defaultColors;
+  custom?: React.ReactNode;
 }
 
 const dropdownList: DrowdownItem[] = [
-  { label: 'Roxo e Azul', value: 'purple-blue' },
-  { label: 'Laranja e Azul', value: 'orange-blue' },
-  { label: 'Vermelho e Rosa', value: 'red-pink' },
-  { label: 'Verde e Amarelo', value: 'green-yellow' },
+  { label: 'Roxo', value: 'purple' },
+  { label: 'Laranja', value: 'orange' },
+  { label: 'Vermelho', value: 'red' },
+  { label: 'Verde', value: 'green' },
 ];
 
 const version = Constants.manifest?.version;
@@ -38,6 +40,27 @@ export function Settings(): JSX.Element {
     setColor({ name: value, ...newColor });
   }
 
+  function getDropdownlist(): DrowdownItem[] {
+    return dropdownList.map(({ label, value }) => {
+      const thisColor = defaultColors[value];
+
+      const custom = (
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <LinearGradient
+            colors={thisColor.gradient}
+            start={{ x: -1, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={{ backgroundColor: colors.primary, width: 30, height: 30 }}
+          />
+
+          <Text style={{ marginLeft: 10 }}>{label}</Text>
+        </View>
+      );
+
+      return { label, value, custom };
+    });
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.themes}>
@@ -49,7 +72,7 @@ export function Settings(): JSX.Element {
           onDismiss={closeThemes}
           value={color.name}
           setValue={switchTheme}
-          list={dropdownList}
+          list={getDropdownlist()}
         />
       </View>
 
