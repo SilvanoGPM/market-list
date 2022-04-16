@@ -50,7 +50,8 @@ export function AddProductModal({
 
   function addProduct(): void {
     const productName = product.name.trim();
-    const productIsValid = productName && product.quantity;
+    const productIsValid =
+      productName && productName.length >= 3 && product.quantity;
 
     if (productIsValid) {
       onAddProductEnd({ ...product, name: productName });
