@@ -30,6 +30,7 @@ import { useStorage } from '../../hooks/useStorage';
 import { useBoolean } from '../../hooks/useBoolean';
 
 import styles from './styles';
+import Repository from '../../lib/Repository';
 
 const PRODUCTS_KEY = '@SkyG0D/Products';
 
@@ -124,6 +125,10 @@ export function NewPurchase(): JSX.Element {
     closeClearDialog();
   }
 
+  async function handlePurchaseSuccess(): Promise<void> {
+    await Repository.remove(PRODUCTS_KEY);
+  }
+
   const selectedProduct = products.find(({ name }) => name === productName);
 
   return (
@@ -163,8 +168,9 @@ export function NewPurchase(): JSX.Element {
 
       <NewPurchaseModal
         visible={newPurchaseVisible}
-        closeModal={closeNewPurchaseModal}
         products={products}
+        onSuccess={handlePurchaseSuccess}
+        closeModal={closeNewPurchaseModal}
       />
 
       <View style={styles.fabContainer}>

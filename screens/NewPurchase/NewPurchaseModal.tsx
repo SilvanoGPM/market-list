@@ -12,12 +12,14 @@ import styles from './styles';
 interface NewPurchaseModalProps {
   products: Product[];
   visible: boolean;
+  onSuccess: () => void;
   closeModal: () => void;
 }
 
 export function NewPurchaseModal({
   products,
   visible,
+  onSuccess,
   closeModal,
 }: NewPurchaseModalProps): JSX.Element {
   const { colors } = useTheme();
@@ -41,6 +43,8 @@ export function NewPurchaseModal({
         position: 'bottom',
         type: 'success',
       });
+
+      onSuccess();
 
       navigation.navigate('Home');
     } else {

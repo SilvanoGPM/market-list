@@ -24,4 +24,8 @@ export default class Repository {
 
     return null;
   }
+
+  static async remove(key: string): Promise<void> {
+    await AsyncStorage.removeItem(key);
+  }
 }
