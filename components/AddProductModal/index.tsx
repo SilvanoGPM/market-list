@@ -11,6 +11,7 @@ import {
   useTheme,
 } from 'react-native-paper';
 
+import { Product } from '../../@types/general.types';
 import { useBoolean } from '../../hooks/useBoolean';
 
 import styles from './styles';

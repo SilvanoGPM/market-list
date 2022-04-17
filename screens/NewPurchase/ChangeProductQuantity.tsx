@@ -13,6 +13,7 @@ import {
 
 import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
 import { useBoolean } from '../../hooks/useBoolean';
+import { Product } from '../../@types/general.types';
 
 import styles from './styles';
 

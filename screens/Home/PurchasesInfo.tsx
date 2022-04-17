@@ -10,6 +10,7 @@ import {
   useTheme,
 } from 'react-native-paper';
 
+import { Purchase } from '../../@types/general.types';
 import { formatPriceToBrazilStyle } from '../../utils/formatters';
 import { sum } from '../../utils/sum';
 

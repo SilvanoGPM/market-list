@@ -1,18 +1,18 @@
-interface Product {
+export interface Product {
   name: string;
   quantity: number;
   price: number;
   caught: boolean;
 }
 
-interface Purchase {
+export interface Purchase {
   id: string;
   title: string;
   total: number;
   products: Product[];
 }
 
-interface Color {
+export interface Color {
   name: string;
   gradient: string[];
   primary: string;

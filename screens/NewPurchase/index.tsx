@@ -28,9 +28,10 @@ import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
 import { AddProductModal } from '../../components/AddProductModal';
 import { useStorage } from '../../hooks/useStorage';
 import { useBoolean } from '../../hooks/useBoolean';
+import { Product } from '../../@types/general.types';
+import Repository from '../../lib/Repository';
 
 import styles from './styles';
-import Repository from '../../lib/Repository';
 
 const PRODUCTS_KEY = '@SkyG0D/Products';
 

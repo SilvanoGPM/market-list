@@ -19,6 +19,8 @@ import { ListProducts } from './ListProducts';
 import { AddProductModal } from '../../components/AddProductModal';
 import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';
 import { useBoolean } from '../../hooks/useBoolean';
+import { RootStackParamList } from '../../@types/routes.types';
+import { Product } from '../../@types/general.types';
 
 import styles from './styles';
 

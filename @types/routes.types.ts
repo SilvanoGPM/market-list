@@ -1,4 +1,4 @@
-type RootStackParamList = {
+export type RootStackParamList = {
   Splash: undefined;
   Home: undefined;
   NewPurchase: undefined;

@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BackHandler } from 'react-native';
 
+import { RootStackParamList } from '../@types/routes.types';
+
 type UseBackHandlerConfig = NativeStackNavigationProp<
   RootStackParamList,
   'Home'

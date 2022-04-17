@@ -19,6 +19,8 @@ import {
 } from 'react-native';
 
 import { formatPriceToBrazilStyle } from '../../utils/formatters';
+import { RootStackParamList } from '../../@types/routes.types';
+import { Purchase } from '../../@types/general.types';
 
 import styles from './styles';
 

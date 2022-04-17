@@ -2,6 +2,8 @@ import React, { createContext, useContext, useMemo } from 'react';
 import { DefaultTheme } from 'react-native-paper';
 import { useStorage } from '../hooks/useStorage';
 
+import { Color } from '../@types/general.types';
+
 interface ColorContextProps {
   color: Color;
   setColor: (color: Color) => void;

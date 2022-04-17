@@ -14,6 +14,7 @@ import { ViewPurchase } from './screens/ViewPurchase';
 import { Splash } from './screens/Splash';
 import { Settings } from './screens/Settings';
 import { useColor } from './contexts/ColorsContext';
+import { RootStackParamList } from './@types/routes.types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

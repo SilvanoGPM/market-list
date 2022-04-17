@@ -13,6 +13,7 @@ import {
   useTheme,
 } from 'react-native-paper';
 
+import { Product } from '../../@types/general.types';
 import { usePurchases } from '../../contexts/PurchaseContext';
 import { useBoolean } from '../../hooks/useBoolean';
 import { equalsCaseInsensitive } from '../../utils/equalsIgnoreCase';

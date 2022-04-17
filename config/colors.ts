@@ -1,5 +1,7 @@
 import { DefaultTheme } from 'react-native-paper';
 
+import { Color } from '../@types/general.types';
+
 const defaultColors: Record<string, Omit<Color, 'name'>> = {
   purple: {
     primary: DefaultTheme.colors.primary,

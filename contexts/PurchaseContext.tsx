@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useContext, useMemo } from 'react';
-
 import { v4 as uuid } from 'uuid';
+
+import { Purchase } from '../@types/general.types';
 import { useStorage } from '../hooks/useStorage';
 
 type PurchaseToAdd = Omit<Purchase, 'id'>;

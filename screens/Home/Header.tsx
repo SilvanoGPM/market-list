@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { useBackInAnimation } from '../../hooks/useBackInAnimation';
+import { RootStackParamList } from '../../@types/routes.types';
 
 import styles from './styles';
 

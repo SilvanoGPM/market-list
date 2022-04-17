@@ -6,6 +6,8 @@ import { Button, Headline, TextInput, useTheme } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
 
 import { usePurchases } from '../../contexts/PurchaseContext';
+import { RootStackParamList } from '../../@types/routes.types';
+import { Product } from '../../@types/general.types';
 
 import styles from './styles';
 

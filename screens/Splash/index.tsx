@@ -5,6 +5,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import LottieView from 'lottie-react-native';
 import { Button, useTheme } from 'react-native-paper';
 
+import { RootStackParamList } from '../../@types/routes.types';
+
 import splash from '../../assets/splash.json';
 
 type SplashProps = NativeStackScreenProps<RootStackParamList, 'Splash'>;

@@ -11,6 +11,7 @@ import { useBackInAnimation } from '../../hooks/useBackInAnimation';
 import { useZoomAnimation } from '../../hooks/useZoomAnimation';
 import { useBackHandlerConfig } from '../../hooks/useBackHandlerConfig';
 import { PurchasesLoading } from './PurchasesLoading';
+import { RootStackParamList } from '../../@types/routes.types';
 
 import styles from './styles';
 
