@@ -25,10 +25,12 @@ import { ProductInfo } from './ProductInfo';
 import styles from './styles';
 
 interface ListProductsProps {
+  purchaseId: string;
   products?: Product[];
 }
 
 export function ListProducts({
+  purchaseId,
   products = [],
 }: ListProductsProps): JSX.Element {
   const { colors } = useTheme();
@@ -51,12 +53,14 @@ export function ListProducts({
 
   function toggleCatchProduct(name: string): () => void {
     return () => {
-      const newPurchases = purchases.map((purchase) => {
-        return {
-          ...purchase,
-          products: updateProduct(name),
-        };
-      });
+      const newPurchases = purchases.map((purchase) =>
+        purchase.id === purchaseId
+          ? {
+              ...purchase,
+              products: updateProduct(name),
+            }
+          : purchase
+      );
 
       setPurchases(newPurchases);
     };

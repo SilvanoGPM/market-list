@@ -108,7 +108,10 @@ export function ViewPurchase({
       <Headline style={styles.title}>{purchase?.title}</Headline>
 
       <View style={{ maxHeight: 400 }}>
-        <ListProducts products={purchase?.products} />
+        <ListProducts
+          purchaseId={route.params.id}
+          products={purchase?.products}
+        />
       </View>
 
       <Headline style={styles.total}>
